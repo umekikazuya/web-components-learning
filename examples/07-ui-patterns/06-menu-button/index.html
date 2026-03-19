@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Build a menu button with ARIA roles and keyboard support</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, system-ui, sans-serif;
+        line-height: 1.6;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #f8fafc;
+        color: #0f172a;
+      }
+
+      main {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 36px 20px 72px;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: #2563eb;
+        font-weight: 700;
+        font-size: 0.875rem;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+      }
+
+      p {
+        margin-top: 0;
+      }
+
+      .summary {
+        max-width: 68ch;
+        color: #475569;
+      }
+
+      .nav {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 24px 0 0;
+        list-style: none;
+      }
+
+      .nav a {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: white;
+        border: 1px solid #dbeafe;
+        color: #2563eb;
+        text-decoration: none;
+      }
+
+      .demo {
+        margin-top: 28px;
+        padding: 24px;
+        border-radius: 24px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+      }
+
+      .hint {
+        margin-top: 20px;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: #eff6ff;
+        color: #1d4ed8;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">07-ui-patterns / 06-menu-button</p>
+      <h1>Build a menu button with ARIA roles and keyboard support</h1>
+      <p class="summary">
+        `menu button` pattern を、button・`role="menu"`・`role="menuitem"`・focus management の組み合わせで作ります。
+      </p>
+      <ul class="nav">
+        <li><a href="../../index.html">examples index</a></li>
+        <li><a href="../05-tabs/index.html">← previous</a></li>
+      </ul>
+      <section class="demo">
+        <menu-button-demo id="menu-button-demo"></menu-button-demo>
+        <p class="hint" id="menu-button-log">
+          ArrowDown / ArrowUp で menu を開き、Escape で閉じられます。
+        </p>
+      </section>
+    </main>
+    <script>
+
+class MenuButtonDemo extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.items = [
+      { label: 'Duplicate', command: 'duplicate' },
+      { label: 'Archive', command: 'archive' },
+      { label: 'Delete', command: 'delete' },
+    ];
+    this.activeIndex = 0;
+    this.handleDocumentPointerDown = this.handleDocumentPointerDown.bind(this);
+    this.handleDocumentFocusIn = this.handleDocumentFocusIn.bind(this);
+  }
+
+  connectedCallback() {
+    this.render();
+    this.trigger = this.shadowRoot.querySelector('[data-trigger]');
+    this.menu = this.shadowRoot.querySelector('[role="menu"]');
+    this.menuItems = [...this.shadowRoot.querySelectorAll('[role="menuitem"]')];
+
+    this.trigger.addEventListener('click', () => {
+      if (this.isOpen()) {
+        this.closeMenu();
+        return;
+      }
+      this.openMenu(0);
+    });
+
+    this.trigger.addEventListener('keydown', (event) => {
+      if (!['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
+        return;
+      }
+
+      event.preventDefault();
+      const nextIndex = event.key === 'ArrowUp' ? this.menuItems.length - 1 : 0;
+      this.openMenu(nextIndex);
+    });
+
+    this.menuItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        this.selectItem(index);
+      });
+
+      item.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          this.closeMenu();
+          return;
+        }
+
+        if (event.key === 'Tab') {
+          this.closeMenu(false);
+          return;
+        }
+
+        const keyToIndex = {
+          Home: 0,
+          End: this.menuItems.length - 1,
+        };
+
+        if (event.key in keyToIndex) {
+          event.preventDefault();
+          this.focusItem(keyToIndex[event.key]);
+          return;
+        }
+
+        if (!['ArrowDown', 'ArrowUp'].includes(event.key)) {
+          return;
+        }
+
+        event.preventDefault();
+        const offset = event.key === 'ArrowDown' ? 1 : -1;
+        const nextIndex = (index + offset + this.menuItems.length) % this.menuItems.length;
+        this.focusItem(nextIndex);
+      });
+    });
+
+    document.addEventListener('pointerdown', this.handleDocumentPointerDown);
+    document.addEventListener('focusin', this.handleDocumentFocusIn);
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener('pointerdown', this.handleDocumentPointerDown);
+    document.removeEventListener('focusin', this.handleDocumentFocusIn);
+  }
+
+  handleDocumentPointerDown(event) {
+    if (this.isOpen() && !event.composedPath().includes(this)) {
+      this.closeMenu(false);
+    }
+  }
+
+  handleDocumentFocusIn(event) {
+    if (this.isOpen() && !event.composedPath().includes(this)) {
+      this.closeMenu(false);
+    }
+  }
+
+  isOpen() {
+    return !this.menu.hidden;
+  }
+
+  openMenu(index) {
+    this.menu.hidden = false;
+    this.trigger.setAttribute('aria-expanded', 'true');
+    this.focusItem(index);
+  }
+
+  closeMenu(restoreFocus = true) {
+    this.menu.hidden = true;
+    this.trigger.setAttribute('aria-expanded', 'false');
+
+    if (restoreFocus) {
+      this.trigger.focus();
+    }
+  }
+
+  focusItem(index) {
+    this.activeIndex = index;
+    this.menuItems.forEach((item, currentIndex) => {
+      item.tabIndex = currentIndex === index ? 0 : -1;
+    });
+    this.menuItems[index].focus();
+  }
+
+  selectItem(index) {
+    const item = this.items[index];
+    this.dispatchEvent(new CustomEvent('menu-select', {
+      detail: item,
+      bubbles: true,
+      composed: true,
+    }));
+    this.closeMenu();
+  }
+
+  render() {
+    const itemButtons = this.items.map((item, index) => `
+      <button
+        type="button"
+        role="menuitem"
+        tabindex="${index === 0 ? '0' : '-1'}"
+        data-command="${item.command}"
+      >${item.label}</button>
+    `).join('');
+
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          display: inline-block;
+        }
+
+        .frame {
+          position: relative;
+          display: inline-block;
+        }
+
+        [data-trigger] {
+          border: 0;
+          border-radius: 999px;
+          background: #2563eb;
+          color: white;
+          padding: 10px 16px;
+          cursor: pointer;
+        }
+
+        [role="menu"] {
+          position: absolute;
+          top: calc(100% + 10px);
+          left: 0;
+          min-width: 180px;
+          padding: 8px;
+          border-radius: 18px;
+          border: 1px solid #dbeafe;
+          background: white;
+          box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+        }
+
+        [role="menu"][hidden] {
+          display: none;
+        }
+
+        [role="menuitem"] {
+          width: 100%;
+          border: 0;
+          border-radius: 12px;
+          background: transparent;
+          padding: 10px 12px;
+          text-align: left;
+          cursor: pointer;
+        }
+
+        [role="menuitem"]:focus {
+          outline: 2px solid #2563eb;
+          outline-offset: 2px;
+          background: #eff6ff;
+        }
+
+        [role="menuitem"]:hover {
+          background: #f8fafc;
+        }
+      </style>
+      <div class="frame">
+        <button
+          type="button"
+          data-trigger
+          aria-haspopup="menu"
+          aria-expanded="false"
+        >More actions</button>
+        <div role="menu" aria-label="Card actions" hidden>
+          ${itemButtons}
+        </div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('menu-button-demo', MenuButtonDemo);
+
+document.getElementById('menu-button-demo').addEventListener('menu-select', (event) => {
+  document.getElementById('menu-button-log').textContent = `selected action: ${event.detail.command}`;
+});
+
+    </script>
+  </body>
+</html>

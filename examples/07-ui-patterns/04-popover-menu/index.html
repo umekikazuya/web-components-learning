@@ -1,0 +1,168 @@
+    <!doctype html>
+    <html lang="ja">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Turn popover into a small command menu</title>
+        <style>
+          :root {
+            color-scheme: light;
+            font-family: Inter, system-ui, sans-serif;
+            line-height: 1.6;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          body {
+            margin: 0;
+            background: #f8fafc;
+            color: #0f172a;
+          }
+
+          main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 36px 20px 72px;
+          }
+
+          .eyebrow {
+            margin: 0 0 8px;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 0.875rem;
+          }
+
+          h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+          }
+
+          p {
+            margin-top: 0;
+          }
+
+          .summary {
+            max-width: 68ch;
+            color: #475569;
+          }
+
+          .nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 24px 0 0;
+            list-style: none;
+          }
+
+          .nav a {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid #dbeafe;
+            color: #2563eb;
+            text-decoration: none;
+          }
+
+          .demo {
+            margin-top: 28px;
+            padding: 24px;
+            border-radius: 24px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+          }
+
+          .hint {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #eff6ff;
+            color: #1d4ed8;
+          }
+
+          .stack {
+            display: grid;
+            gap: 16px;
+          }
+
+          .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          }
+
+          button,
+          input,
+          select,
+          textarea {
+            font: inherit;
+          }
+
+
+        </style>
+      </head>
+      <body>
+        <main>
+          <p class="eyebrow">07-ui-patterns / 04-popover-menu</p>
+          <h1>Turn popover into a small command menu</h1>
+          <p class="summary">popover を menu-like UI に広げ、選択イベントを外側に返す例です。</p>
+          <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../03-popover-basics/index.html">← previous</a></li><li><a href="../05-tabs/index.html">next →</a></li></ul>
+          <section class="demo">
+
+<div class="stack">
+  <command-menu id="command-menu"></command-menu>
+  <p id="menu-log" class="hint">まだ command は選ばれていません。</p>
+</div>
+
+          </section>
+        </main>
+        <script>
+
+class CommandMenu extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    this.shadowRoot.innerHTML = `
+      <style>
+        button { border: 0; border-radius: 999px; background: #2563eb; color: white; padding: 10px 16px; cursor: pointer; }
+        [popover] { padding: 16px; border: 1px solid #dbeafe; border-radius: 18px; }
+        .menu { display: grid; gap: 8px; }
+      </style>
+      <button type="button" popovertarget="command-menu-popover">open commands</button>
+      <div id="command-menu-popover" popover>
+        <div class="menu">
+          <button type="button" data-command="preview">preview</button>
+          <button type="button" data-command="publish">publish</button>
+        </div>
+      </div>
+    `;
+
+    this.shadowRoot.querySelectorAll('[data-command]').forEach((button) => {
+      button.addEventListener('click', () => {
+        this.dispatchEvent(new CustomEvent('command-select', {
+          detail: { command: button.dataset.command },
+          bubbles: true,
+          composed: true,
+        }));
+      });
+    });
+  }
+}
+
+customElements.define('command-menu', CommandMenu);
+
+document.getElementById('command-menu').addEventListener('command-select', (event) => {
+  document.getElementById('menu-log').textContent = `selected command: ${event.detail.command}`;
+});
+
+        </script>
+      </body>
+    </html>

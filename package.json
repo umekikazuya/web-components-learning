@@ -1,0 +1,15 @@
+{
+  "name": "web-components-sandbox",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "node scripts/validate-examples.mjs && node --check vite.config.mjs",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "vite": "^8.0.1"
+  }
+}

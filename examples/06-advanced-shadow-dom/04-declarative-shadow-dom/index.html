@@ -1,0 +1,159 @@
+    <!doctype html>
+    <html lang="ja">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Start with Declarative Shadow DOM</title>
+        <style>
+          :root {
+            color-scheme: light;
+            font-family: Inter, system-ui, sans-serif;
+            line-height: 1.6;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          body {
+            margin: 0;
+            background: #f8fafc;
+            color: #0f172a;
+          }
+
+          main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 36px 20px 72px;
+          }
+
+          .eyebrow {
+            margin: 0 0 8px;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 0.875rem;
+          }
+
+          h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+          }
+
+          p {
+            margin-top: 0;
+          }
+
+          .summary {
+            max-width: 68ch;
+            color: #475569;
+          }
+
+          .nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 24px 0 0;
+            list-style: none;
+          }
+
+          .nav a {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid #dbeafe;
+            color: #2563eb;
+            text-decoration: none;
+          }
+
+          .demo {
+            margin-top: 28px;
+            padding: 24px;
+            border-radius: 24px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+          }
+
+          .hint {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #eff6ff;
+            color: #1d4ed8;
+          }
+
+          .stack {
+            display: grid;
+            gap: 16px;
+          }
+
+          .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          }
+
+          button,
+          input,
+          select,
+          textarea {
+            font: inherit;
+          }
+
+
+        </style>
+      </head>
+      <body>
+        <main>
+          <p class="eyebrow">06-advanced-shadow-dom / 04-declarative-shadow-dom</p>
+          <h1>Start with Declarative Shadow DOM</h1>
+          <p class="summary">`<template shadowrootmode="open">` を使うと、HTML 側に shadow root の初期内容を書けます。</p>
+          <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../03-updating-sheet/index.html">← previous</a></li><li><a href="../05-upgrade-declarative-shadow/index.html">next →</a></li></ul>
+          <section class="demo">
+
+<declarative-card>
+  <template shadowrootmode="open">
+    <style>
+      article { padding: 22px; border-radius: 20px; background: white; border: 1px solid #dbeafe; }
+      .eyebrow { color: #2563eb; font-weight: 700; }
+    </style>
+    <article>
+      <p class="eyebrow">Declarative Shadow DOM</p>
+      <h2>Initial HTML-defined shadow root</h2>
+      <p class="status">waiting for detection...</p>
+    </article>
+  </template>
+</declarative-card>
+<p class="hint" id="dsd-log"></p>
+
+          </section>
+        </main>
+        <script>
+
+class DeclarativeCard extends HTMLElement {
+  connectedCallback() {
+    if (!this.shadowRoot) {
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = '<article>Declarative Shadow DOM not parsed in this environment.</article>';
+    }
+
+    const status = this.shadowRoot.querySelector('.status');
+    if (status) {
+      status.textContent = 'shadow root was available before upgrade';
+    }
+  }
+}
+
+customElements.define('declarative-card', DeclarativeCard);
+
+const supportsDeclarativeShadowDom = 'shadowRootMode' in HTMLTemplateElement.prototype;
+document.getElementById('dsd-log').textContent = document.querySelector('declarative-card').shadowRoot
+  ? `support note: ${supportsDeclarativeShadowDom ? 'Declarative Shadow DOM is available or was parsed before upgrade.' : 'Declarative Shadow DOM is not available here, so the demo falls back to attachShadow().'}` 
+  : 'No shadow root available.';
+
+        </script>
+      </body>
+    </html>

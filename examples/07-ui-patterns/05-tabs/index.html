@@ -1,0 +1,198 @@
+    <!doctype html>
+    <html lang="ja">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Build accessible tabs with roles and keyboard support</title>
+        <style>
+          :root {
+            color-scheme: light;
+            font-family: Inter, system-ui, sans-serif;
+            line-height: 1.6;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          body {
+            margin: 0;
+            background: #f8fafc;
+            color: #0f172a;
+          }
+
+          main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 36px 20px 72px;
+          }
+
+          .eyebrow {
+            margin: 0 0 8px;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 0.875rem;
+          }
+
+          h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+          }
+
+          p {
+            margin-top: 0;
+          }
+
+          .summary {
+            max-width: 68ch;
+            color: #475569;
+          }
+
+          .nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 24px 0 0;
+            list-style: none;
+          }
+
+          .nav a {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid #dbeafe;
+            color: #2563eb;
+            text-decoration: none;
+          }
+
+          .demo {
+            margin-top: 28px;
+            padding: 24px;
+            border-radius: 24px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+          }
+
+          .hint {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #eff6ff;
+            color: #1d4ed8;
+          }
+
+          .stack {
+            display: grid;
+            gap: 16px;
+          }
+
+          .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          }
+
+          button,
+          input,
+          select,
+          textarea {
+            font: inherit;
+          }
+
+
+        </style>
+      </head>
+      <body>
+        <main>
+          <p class="eyebrow">07-ui-patterns / 05-tabs</p>
+          <h1>Build accessible tabs with roles and keyboard support</h1>
+<p class="summary">tabs は composite widget の代表例です。role と roving focus に加えて、Arrow / Home / End キーの最小サポートも実装します。</p>
+          <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../04-popover-menu/index.html">← previous</a></li><li><a href="../06-menu-button/index.html">next →</a></li></ul>
+          <section class="demo">
+
+<demo-tabs></demo-tabs>
+
+          </section>
+        </main>
+        <script>
+
+class DemoTabs extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.selectedIndex = 0;
+  }
+
+  connectedCallback() {
+    this.render();
+  }
+
+  select(index) {
+    this.selectedIndex = index;
+    this.render();
+  }
+
+  render() {
+    const tabs = ['Overview', 'API', 'Notes'];
+    const panels = [
+      'Tabs connect one active tab to one visible panel.',
+      'Use role="tablist", role="tab", and role="tabpanel" together.',
+      'Arrow keys move focus between tabs in this example.',
+    ];
+
+    const tabButtons = tabs.map((label, index) => `
+      <button
+        type="button"
+        role="tab"
+        id="tab-${index}"
+        aria-selected="${index === this.selectedIndex ? 'true' : 'false'}"
+        aria-controls="panel-${index}"
+        tabindex="${index === this.selectedIndex ? '0' : '-1'}"
+        data-index="${index}"
+      >${label}</button>
+    `).join('');
+
+    const panel = `<section role="tabpanel" id="panel-${this.selectedIndex}" aria-labelledby="tab-${this.selectedIndex}">${panels[this.selectedIndex]}</section>`;
+
+    this.shadowRoot.innerHTML = `
+      <style>
+        [role="tablist"] { display: flex; gap: 8px; margin-bottom: 16px; }
+        [role="tab"] { border: 0; border-radius: 999px; padding: 10px 14px; background: #e2e8f0; cursor: pointer; }
+        [role="tab"][aria-selected="true"] { background: #2563eb; color: white; }
+        [role="tabpanel"] { padding: 18px; border-radius: 18px; background: white; border: 1px solid #dbeafe; }
+      </style>
+      <div role="tablist" aria-label="demo tabs">${tabButtons}</div>
+      ${panel}
+    `;
+
+    this.shadowRoot.querySelectorAll('[role="tab"]').forEach((button) => {
+      button.addEventListener('click', () => this.select(Number(button.dataset.index)));
+      button.addEventListener('keydown', (event) => {
+        if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) {
+          return;
+        }
+        event.preventDefault();
+        const current = Number(button.dataset.index);
+        const next = event.key === 'Home'
+          ? 0
+          : event.key === 'End'
+            ? tabs.length - 1
+            : event.key === 'ArrowRight'
+              ? (current + 1) % tabs.length
+              : (current - 1 + tabs.length) % tabs.length;
+        this.select(next);
+        this.shadowRoot.querySelector(`[data-index="${next}"]`)?.focus();
+      });
+    });
+  }
+}
+
+customElements.define('demo-tabs', DemoTabs);
+
+        </script>
+      </body>
+    </html>

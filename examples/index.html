@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web Components Sandbox</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, system-ui, sans-serif;
+        line-height: 1.5;
+      }
+
+      body {
+        margin: 0;
+        background: #f8fafc;
+        color: #0f172a;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 48px 20px 80px;
+      }
+
+      h1 {
+        margin-bottom: 12px;
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+
+      .lede {
+        max-width: 72ch;
+        color: #475569;
+      }
+
+      .track-grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        margin-top: 32px;
+      }
+
+      .track {
+        padding: 24px;
+        border-radius: 24px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: #2563eb;
+        font-weight: 700;
+      }
+
+      ul {
+        padding-left: 18px;
+      }
+
+      a {
+        color: #2563eb;
+      }
+
+      .recommended {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: #dbeafe;
+        color: #1d4ed8;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      .route {
+        margin-top: 24px;
+        padding: 20px;
+        border-radius: 24px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+      }
+
+      .route ol {
+        margin: 12px 0 0;
+        padding-left: 20px;
+      }
+
+      .route p:last-child {
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Topic-first sandbox</p>
+      <h1>Web Components Sandbox</h1>
+      <p class="lede">
+        基礎から始めつつ、`ElementInternals`、`adoptedStyleSheets`、Declarative Shadow DOM、`dialog`、`popover` のような新しめの標準 API まで広めに扱う構成です。
+      </p>
+
+      <section class="route" aria-labelledby="recommended-route-title">
+        <p class="recommended">Step-by-step route</p>
+        <h2 id="recommended-route-title">最初はこの順番で進めるのがおすすめです</h2>
+        <ol>
+          <li>`03 Custom Elements` で独自要素の基本を掴む</li>
+          <li>`01 Shadow DOM` でカプセル化と template / slot を比べる</li>
+          <li>`04 Accessibility` で意味・状態・関係性を整理する</li>
+          <li>`02 Styling` で component styling の選択肢を整理する</li>
+        </ol>
+        <p>ここまで終わったら、`05` 以降の発展 track に進むと理解がつながりやすくなります。</p>
+      </section>
+
+      <section class="track-grid">
+        <article class="track">
+          <p class="recommended">Recommended start</p>
+          <h2>03 Custom Elements</h2>
+          <p>定義、lifecycle、属性反映、実践カードまでを 4 ステップで確認します。</p>
+          <ul>
+            <li><a href="./03-custom-elements/01-define-element/index.html">01 define-element</a></li>
+            <li><a href="./03-custom-elements/02-lifecycle/index.html">02 lifecycle</a></li>
+            <li><a href="./03-custom-elements/03-attributes/index.html">03 attributes</a></li>
+            <li><a href="./03-custom-elements/04-practical-card/index.html">04 practical-card</a></li>
+          </ul>
+        </article>
+
+        <article class="track">
+          <p class="eyebrow">01</p>
+          <h2>Shadow DOM</h2>
+          <p>カプセル化、template、slots を段階的に比べます。</p>
+          <ul>
+            <li><a href="./01-shadow-dom/01-without-shadow/index.html">01 without-shadow</a></li>
+            <li><a href="./01-shadow-dom/02-first-shadow/index.html">02 first-shadow</a></li>
+            <li><a href="./01-shadow-dom/03-template/index.html">03 template</a></li>
+            <li><a href="./01-shadow-dom/04-default-slot/index.html">04 default-slot</a></li>
+            <li><a href="./01-shadow-dom/05-named-slots/index.html">05 named-slots</a></li>
+          </ul>
+        </article>
+
+        <article class="track">
+          <p class="eyebrow">04</p>
+          <h2>Accessibility</h2>
+          <p>semantic elements, `aria-*`, disclosure, switch patterns を段階的に確認します。</p>
+          <ul>
+            <li><a href="./04-accessibility/01-native-button/index.html">01 native-button</a></li>
+            <li><a href="./04-accessibility/02-aria-pressed/index.html">02 aria-pressed</a></li>
+            <li><a href="./04-accessibility/03-described-by/index.html">03 described-by</a></li>
+            <li><a href="./04-accessibility/04-disclosure/index.html">04 disclosure</a></li>
+            <li><a href="./04-accessibility/05-switch/index.html">05 switch</a></li>
+          </ul>
+        </article>
+
+        <article class="track">
+          <p class="eyebrow">02</p>
+          <h2>Styling</h2>
+          <p>CSS custom properties, `:host`, `:host-context`, `::part()` を横断して比べます。</p>
+          <ul>
+            <li><a href="./02-styling/01-css-custom-properties/index.html">01 css-custom-properties</a></li>
+            <li><a href="./02-styling/02-host-selector/index.html">02 host-selector</a></li>
+            <li><a href="./02-styling/03-host-context/index.html">03 host-context</a></li>
+            <li><a href="./02-styling/04-part/index.html">04 part</a></li>
+            <li><a href="./02-styling/05-combined/index.html">05 combined</a></li>
+          </ul>
+        </article>
+
+        <article class="track">
+          <p class="eyebrow">05</p>
+          <h2>Forms & ElementInternals</h2>
+          <p>form-associated custom elements, reset, validation, disabled callback を見ます。</p>
+          <ul>
+            <li><a href="./05-forms-and-element-internals/01-associated-control/index.html">01 associated-control</a></li>
+            <li><a href="./05-forms-and-element-internals/02-reset-callback/index.html">02 reset-callback</a></li>
+            <li><a href="./05-forms-and-element-internals/03-validation/index.html">03 validation</a></li>
+            <li><a href="./05-forms-and-element-internals/04-disabled-callback/index.html">04 disabled-callback</a></li>
+            <li><a href="./05-forms-and-element-internals/05-rating-input/index.html">05 rating-input</a></li>
+          </ul>
+        </article>
+
+        <article class="track">
+          <p class="eyebrow">06</p>
+          <h2>Advanced Shadow DOM</h2>
+          <p>`adoptedStyleSheets` と Declarative Shadow DOM を最新寄りの API として扱います。</p>
+          <ul>
+            <li><a href="./06-advanced-shadow-dom/01-constructable-sheet/index.html">01 constructable-sheet</a></li>
+            <li><a href="./06-advanced-shadow-dom/02-shared-sheet/index.html">02 shared-sheet</a></li>
+            <li><a href="./06-advanced-shadow-dom/03-updating-sheet/index.html">03 updating-sheet</a></li>
+            <li><a href="./06-advanced-shadow-dom/04-declarative-shadow-dom/index.html">04 declarative-shadow-dom</a></li>
+            <li><a href="./06-advanced-shadow-dom/05-upgrade-declarative-shadow/index.html">05 upgrade-declarative-shadow</a></li>
+          </ul>
+        </article>
+
+        <article class="track">
+          <p class="eyebrow">07</p>
+          <h2>UI Patterns</h2>
+          <p>`dialog`, `popover`, tabs, menu button を標準 API で組み立てます。</p>
+          <ul>
+            <li><a href="./07-ui-patterns/01-dialog-basics/index.html">01 dialog-basics</a></li>
+            <li><a href="./07-ui-patterns/02-dialog-component/index.html">02 dialog-component</a></li>
+            <li><a href="./07-ui-patterns/03-popover-basics/index.html">03 popover-basics</a></li>
+            <li><a href="./07-ui-patterns/04-popover-menu/index.html">04 popover-menu</a></li>
+            <li><a href="./07-ui-patterns/05-tabs/index.html">05 tabs</a></li>
+            <li><a href="./07-ui-patterns/06-menu-button/index.html">06 menu-button</a></li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

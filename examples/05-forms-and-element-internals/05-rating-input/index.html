@@ -1,0 +1,208 @@
+    <!doctype html>
+    <html lang="ja">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Compose a rating input with ElementInternals</title>
+        <style>
+          :root {
+            color-scheme: light;
+            font-family: Inter, system-ui, sans-serif;
+            line-height: 1.6;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          body {
+            margin: 0;
+            background: #f8fafc;
+            color: #0f172a;
+          }
+
+          main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 36px 20px 72px;
+          }
+
+          .eyebrow {
+            margin: 0 0 8px;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 0.875rem;
+          }
+
+          h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+          }
+
+          p {
+            margin-top: 0;
+          }
+
+          .summary {
+            max-width: 68ch;
+            color: #475569;
+          }
+
+          .nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 24px 0 0;
+            list-style: none;
+          }
+
+          .nav a {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid #dbeafe;
+            color: #2563eb;
+            text-decoration: none;
+          }
+
+          .demo {
+            margin-top: 28px;
+            padding: 24px;
+            border-radius: 24px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+          }
+
+          .hint {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #eff6ff;
+            color: #1d4ed8;
+          }
+
+          .stack {
+            display: grid;
+            gap: 16px;
+          }
+
+          .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          }
+
+          button,
+          input,
+          select,
+          textarea {
+            font: inherit;
+          }
+
+
+  .controls { display: flex; gap: 12px; flex-wrap: wrap; }
+  .controls button { border: 0; border-radius: 999px; background: #2563eb; color: white; padding: 10px 16px; cursor: pointer; }
+
+        </style>
+      </head>
+      <body>
+        <main>
+          <p class="eyebrow">05-forms-and-element-internals / 05-rating-input</p>
+          <h1>Compose a rating input with ElementInternals</h1>
+          <p class="summary">最後は実践例として、star rating を form-associated custom element にまとめます。</p>
+          <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../04-disabled-callback/index.html">← previous</a></li></ul>
+          <section class="demo">
+
+<form id="rating-form" class="stack">
+  <rating-input name="rating" required></rating-input>
+  <div class="controls">
+    <button type="submit">submit rating</button>
+    <button type="reset">reset</button>
+  </div>
+</form>
+<p id="rating-log" class="hint">まだ評価を送信していません。</p>
+
+          </section>
+        </main>
+        <script>
+
+class RatingInput extends HTMLElement {
+  static formAssociated = true;
+
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.internals = this.attachInternals?.() ?? null;
+    this.defaultValue = null;
+    this.value = null;
+  }
+
+  connectedCallback() {
+    this.render();
+    this.updateValue(this.defaultValue);
+  }
+
+  updateValue(nextValue) {
+    this.value = nextValue;
+    this.internals?.setFormValue(nextValue ?? '');
+    if (this.hasAttribute('required') && !nextValue) {
+      this.internals?.setValidity({ valueMissing: true }, 'Pick a rating before submitting.');
+    } else {
+      this.internals?.setValidity({});
+    }
+    this.render();
+  }
+
+  formResetCallback() {
+    this.updateValue(this.defaultValue);
+  }
+
+  render() {
+    const buttons = Array.from({ length: 5 }, (_, index) => {
+      const value = index + 1;
+      const active = this.value !== null && value <= this.value;
+      return `<button type="button" data-value="${value}" aria-label="rate ${value}" style="color:${active ? '#f59e0b' : '#cbd5e1'};">★</button>`;
+    }).join('');
+
+    this.shadowRoot.innerHTML = `
+      <style>
+        .wrapper { display: grid; gap: 10px; }
+        .stars { display: flex; gap: 6px; }
+        button { border: 0; background: transparent; font-size: 2rem; cursor: pointer; }
+        .meta { color: #475569; font-size: 0.875rem; }
+      </style>
+      <div class="wrapper">
+        <div class="stars" role="group" aria-label="rating picker">${buttons}</div>
+        <div class="meta">selected: ${this.value ?? 'none'}</div>
+      </div>
+    `;
+
+    this.shadowRoot.querySelectorAll('button').forEach((button) => {
+      button.addEventListener('click', () => {
+        this.updateValue(button.dataset.value);
+      });
+    });
+  }
+}
+
+customElements.define('rating-input', RatingInput);
+
+document.getElementById('rating-form').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const isValid = form.reportValidity();
+  if (!isValid) {
+    document.getElementById('rating-log').textContent = 'submit blocked: pick a rating first';
+    return;
+  }
+  const formData = new FormData(form);
+  document.getElementById('rating-log').textContent = `submitted rating=${formData.get('rating')}`;
+});
+
+        </script>
+      </body>
+    </html>

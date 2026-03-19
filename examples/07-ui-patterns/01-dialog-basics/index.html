@@ -1,0 +1,147 @@
+    <!doctype html>
+    <html lang="ja">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Open and close a native dialog</title>
+        <style>
+          :root {
+            color-scheme: light;
+            font-family: Inter, system-ui, sans-serif;
+            line-height: 1.6;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          body {
+            margin: 0;
+            background: #f8fafc;
+            color: #0f172a;
+          }
+
+          main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 36px 20px 72px;
+          }
+
+          .eyebrow {
+            margin: 0 0 8px;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 0.875rem;
+          }
+
+          h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+          }
+
+          p {
+            margin-top: 0;
+          }
+
+          .summary {
+            max-width: 68ch;
+            color: #475569;
+          }
+
+          .nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 24px 0 0;
+            list-style: none;
+          }
+
+          .nav a {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid #dbeafe;
+            color: #2563eb;
+            text-decoration: none;
+          }
+
+          .demo {
+            margin-top: 28px;
+            padding: 24px;
+            border-radius: 24px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+          }
+
+          .hint {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #eff6ff;
+            color: #1d4ed8;
+          }
+
+          .stack {
+            display: grid;
+            gap: 16px;
+          }
+
+          .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          }
+
+          button,
+          input,
+          select,
+          textarea {
+            font: inherit;
+          }
+
+
+  #open-native-dialog, dialog button { border: 0; border-radius: 999px; background: #2563eb; color: white; padding: 10px 16px; cursor: pointer; }
+  dialog { border: 0; border-radius: 20px; padding: 24px; box-shadow: 0 32px 64px -36px rgba(15,23,42,.6); }
+
+        </style>
+      </head>
+      <body>
+        <main>
+          <p class="eyebrow">07-ui-patterns / 01-dialog-basics</p>
+          <h1>Open and close a native dialog</h1>
+          <p class="summary">まずは `<dialog>` を素で使い、`showModal()` と `close()` の基本を確認します。</p>
+          <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../02-dialog-component/index.html">next →</a></li></ul>
+          <section class="demo">
+
+<div class="stack">
+  <button id="open-native-dialog" type="button">open dialog</button>
+  <dialog id="native-dialog">
+    <form method="dialog" class="stack">
+      <h2>Native dialog</h2>
+      <p>`showModal()` で開き、`method="dialog"` で close できます。</p>
+      <button type="submit">close</button>
+    </form>
+  </dialog>
+  <p id="dialog-log" class="hint">まだ dialog は開いていません。</p>
+</div>
+
+          </section>
+        </main>
+        <script>
+
+const nativeDialog = document.getElementById('native-dialog');
+document.getElementById('open-native-dialog').addEventListener('click', () => {
+  nativeDialog.showModal();
+  document.getElementById('dialog-log').textContent = 'dialog opened';
+});
+nativeDialog.addEventListener('close', () => {
+  document.getElementById('dialog-log').textContent = 'dialog closed';
+});
+
+        </script>
+      </body>
+    </html>

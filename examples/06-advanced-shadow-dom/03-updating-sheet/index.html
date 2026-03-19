@@ -1,0 +1,181 @@
+    <!doctype html>
+    <html lang="ja">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Update a shared stylesheet in place</title>
+        <style>
+          :root {
+            color-scheme: light;
+            font-family: Inter, system-ui, sans-serif;
+            line-height: 1.6;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          body {
+            margin: 0;
+            background: #f8fafc;
+            color: #0f172a;
+          }
+
+          main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 36px 20px 72px;
+          }
+
+          .eyebrow {
+            margin: 0 0 8px;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 0.875rem;
+          }
+
+          h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+          }
+
+          p {
+            margin-top: 0;
+          }
+
+          .summary {
+            max-width: 68ch;
+            color: #475569;
+          }
+
+          .nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 24px 0 0;
+            list-style: none;
+          }
+
+          .nav a {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid #dbeafe;
+            color: #2563eb;
+            text-decoration: none;
+          }
+
+          .demo {
+            margin-top: 28px;
+            padding: 24px;
+            border-radius: 24px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+          }
+
+          .hint {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #eff6ff;
+            color: #1d4ed8;
+          }
+
+          .stack {
+            display: grid;
+            gap: 16px;
+          }
+
+          .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          }
+
+          button,
+          input,
+          select,
+          textarea {
+            font: inherit;
+          }
+
+
+        </style>
+      </head>
+      <body>
+        <main>
+          <p class="eyebrow">06-advanced-shadow-dom / 03-updating-sheet</p>
+          <h1>Update a shared stylesheet in place</h1>
+          <p class="summary">`replaceSync()` で shared stylesheet を差し替えると、採用している複数 component がまとめて更新されます。</p>
+          <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../02-shared-sheet/index.html">← previous</a></li><li><a href="../04-declarative-shadow-dom/index.html">next →</a></li></ul>
+          <section class="demo">
+
+<div class="stack">
+  <label>
+    theme
+    <select id="theme-picker">
+      <option value="blue">blue</option>
+      <option value="green">green</option>
+    </select>
+  </label>
+  <div class="grid">
+    <live-theme-card title="Preview 1"></live-theme-card>
+    <live-theme-card title="Preview 2"></live-theme-card>
+  </div>
+</div>
+
+          </section>
+        </main>
+        <script>
+
+const supportsConstructable = 'adoptedStyleSheets' in ShadowRoot.prototype && 'replaceSync' in CSSStyleSheet.prototype;
+const themeSheet = supportsConstructable ? new CSSStyleSheet() : null;
+
+function themeCss(accent, surface) {
+  return `article{padding:20px;border-radius:18px;background:${surface};border:1px solid ${accent};} .eyebrow{color:${accent};font-weight:700}`;
+}
+
+themeSheet?.replaceSync(themeCss('#2563eb', '#eff6ff'));
+
+class LiveThemeCard extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    if (supportsConstructable) {
+      this.shadowRoot.adoptedStyleSheets = [themeSheet];
+    }
+    this.render();
+  }
+
+  render() {
+    this.shadowRoot.innerHTML = `
+      ${supportsConstructable ? '' : '<style>' + themeCss('#2563eb', '#eff6ff') + '</style>'}
+      <article>
+        <p class="eyebrow">shared theme</p>
+        <h2>${this.getAttribute('title') ?? 'Card'}</h2>
+        <p>theme の切り替えが複数 component に同時反映されます。</p>
+      </article>
+    `;
+  }
+}
+
+customElements.define('live-theme-card', LiveThemeCard);
+
+document.getElementById('theme-picker').addEventListener('change', (event) => {
+  if (!supportsConstructable) {
+    return;
+  }
+  const theme = event.target.value;
+  themeSheet.replaceSync(theme === 'green' ? themeCss('#16a34a', '#f0fdf4') : themeCss('#2563eb', '#eff6ff'));
+});
+
+        </script>
+      </body>
+    </html>

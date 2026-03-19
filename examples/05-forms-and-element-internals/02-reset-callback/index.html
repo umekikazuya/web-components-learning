@@ -1,0 +1,182 @@
+    <!doctype html>
+    <html lang="ja">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Reset internal state with formResetCallback</title>
+        <style>
+          :root {
+            color-scheme: light;
+            font-family: Inter, system-ui, sans-serif;
+            line-height: 1.6;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          body {
+            margin: 0;
+            background: #f8fafc;
+            color: #0f172a;
+          }
+
+          main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 36px 20px 72px;
+          }
+
+          .eyebrow {
+            margin: 0 0 8px;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 0.875rem;
+          }
+
+          h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+          }
+
+          p {
+            margin-top: 0;
+          }
+
+          .summary {
+            max-width: 68ch;
+            color: #475569;
+          }
+
+          .nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 24px 0 0;
+            list-style: none;
+          }
+
+          .nav a {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid #dbeafe;
+            color: #2563eb;
+            text-decoration: none;
+          }
+
+          .demo {
+            margin-top: 28px;
+            padding: 24px;
+            border-radius: 24px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+          }
+
+          .hint {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #eff6ff;
+            color: #1d4ed8;
+          }
+
+          .stack {
+            display: grid;
+            gap: 16px;
+          }
+
+          .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          }
+
+          button,
+          input,
+          select,
+          textarea {
+            font: inherit;
+          }
+
+
+  .controls button { border: 0; border-radius: 999px; background: #2563eb; color: white; padding: 10px 16px; cursor: pointer; }
+
+        </style>
+      </head>
+      <body>
+        <main>
+          <p class="eyebrow">05-forms-and-element-internals / 02-reset-callback</p>
+          <h1>Reset internal state with formResetCallback</h1>
+          <p class="summary">form reset 時に custom element の内部値も初期状態へ戻せることを確認します。</p>
+          <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../01-associated-control/index.html">← previous</a></li><li><a href="../03-validation/index.html">next →</a></li></ul>
+          <section class="demo">
+
+<form id="reset-form" class="stack">
+  <reset-field name="nickname" value="copilot"></reset-field>
+  <div class="controls">
+    <button type="reset">reset</button>
+  </div>
+</form>
+
+          </section>
+        </main>
+        <script>
+
+class ResetField extends HTMLElement {
+  static formAssociated = true;
+
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.internals = this.attachInternals?.() ?? null;
+    this.defaultValue = this.getAttribute('value') ?? '';
+  }
+
+  connectedCallback() {
+    this.render();
+    this.setValue(this.defaultValue);
+  }
+
+  setValue(value) {
+    this.value = value;
+    this.internals?.setFormValue(value);
+    const input = this.shadowRoot?.querySelector('input');
+    if (input && input.value !== value) {
+      input.value = value;
+    }
+  }
+
+  formResetCallback() {
+    this.setValue(this.defaultValue);
+  }
+
+  render() {
+    this.shadowRoot.innerHTML = `
+      <style>
+        label { display: grid; gap: 8px; font-weight: 700; }
+        input { padding: 10px 12px; border-radius: 12px; border: 1px solid #cbd5e1; }
+        .meta { color: #475569; font-size: 0.875rem; }
+      </style>
+      <label>
+        Nickname
+        <input type="text" value="${this.defaultValue}">
+      </label>
+      <p class="meta">reset すると初期値 ${this.defaultValue} に戻ります。</p>
+    `;
+
+    this.shadowRoot.querySelector('input').addEventListener('input', (event) => {
+      this.setValue(event.target.value);
+    });
+  }
+}
+
+customElements.define('reset-field', ResetField);
+
+        </script>
+      </body>
+    </html>

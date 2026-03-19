@@ -1,0 +1,187 @@
+    <!doctype html>
+    <html lang="ja">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Control validity with ElementInternals</title>
+        <style>
+          :root {
+            color-scheme: light;
+            font-family: Inter, system-ui, sans-serif;
+            line-height: 1.6;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          body {
+            margin: 0;
+            background: #f8fafc;
+            color: #0f172a;
+          }
+
+          main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 36px 20px 72px;
+          }
+
+          .eyebrow {
+            margin: 0 0 8px;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 0.875rem;
+          }
+
+          h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+          }
+
+          p {
+            margin-top: 0;
+          }
+
+          .summary {
+            max-width: 68ch;
+            color: #475569;
+          }
+
+          .nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 24px 0 0;
+            list-style: none;
+          }
+
+          .nav a {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid #dbeafe;
+            color: #2563eb;
+            text-decoration: none;
+          }
+
+          .demo {
+            margin-top: 28px;
+            padding: 24px;
+            border-radius: 24px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+          }
+
+          .hint {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #eff6ff;
+            color: #1d4ed8;
+          }
+
+          .stack {
+            display: grid;
+            gap: 16px;
+          }
+
+          .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          }
+
+          button,
+          input,
+          select,
+          textarea {
+            font: inherit;
+          }
+
+
+  .controls button { border: 0; border-radius: 999px; background: #2563eb; color: white; padding: 10px 16px; cursor: pointer; }
+
+        </style>
+      </head>
+      <body>
+        <main>
+          <p class="eyebrow">05-forms-and-element-internals / 03-validation</p>
+          <h1>Control validity with ElementInternals</h1>
+          <p class="summary">`setValidity()` を使って value missing を管理し、form 側の検証へ参加させます。</p>
+          <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../02-reset-callback/index.html">← previous</a></li><li><a href="../04-disabled-callback/index.html">next →</a></li></ul>
+          <section class="demo">
+
+<form id="validation-form" class="stack">
+  <required-note name="summary" required></required-note>
+  <div class="controls">
+    <button type="submit">validate and submit</button>
+  </div>
+</form>
+<p id="validation-log" class="hint">まだ検証していません。</p>
+
+          </section>
+        </main>
+        <script>
+
+class RequiredNote extends HTMLElement {
+  static formAssociated = true;
+
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.internals = this.attachInternals?.() ?? null;
+  }
+
+  connectedCallback() {
+    this.render();
+    this.updateValue('');
+  }
+
+  updateValue(value) {
+    this.value = value;
+    this.internals?.setFormValue(value);
+    if (this.hasAttribute('required') && value.trim() === '') {
+      this.internals?.setValidity({ valueMissing: true }, 'Summary is required.');
+    } else {
+      this.internals?.setValidity({});
+    }
+  }
+
+  render() {
+    this.shadowRoot.innerHTML = `
+      <style>
+        label { display: grid; gap: 8px; font-weight: 700; }
+        textarea { min-block-size: 100px; padding: 10px 12px; border-radius: 12px; border: 1px solid #cbd5e1; resize: vertical; }
+        .meta { color: #475569; font-size: 0.875rem; }
+      </style>
+      <label>
+        Summary
+        <textarea placeholder="Write a short summary"></textarea>
+      </label>
+      <p class="meta">Empty のまま submit すると、support がある環境では custom validity が有効になります。</p>
+    `;
+
+    this.shadowRoot.querySelector('textarea').addEventListener('input', (event) => {
+      this.updateValue(event.target.value);
+    });
+  }
+}
+
+customElements.define('required-note', RequiredNote);
+
+document.getElementById('validation-form').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const isValid = event.currentTarget.reportValidity();
+  document.getElementById('validation-log').textContent = isValid
+    ? 'submit possible: validity passed'
+    : 'submit blocked: validity failed';
+});
+
+        </script>
+      </body>
+    </html>

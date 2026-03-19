@@ -1,0 +1,176 @@
+    <!doctype html>
+    <html lang="ja">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Wrap dialog in a custom element</title>
+        <style>
+          :root {
+            color-scheme: light;
+            font-family: Inter, system-ui, sans-serif;
+            line-height: 1.6;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          body {
+            margin: 0;
+            background: #f8fafc;
+            color: #0f172a;
+          }
+
+          main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 36px 20px 72px;
+          }
+
+          .eyebrow {
+            margin: 0 0 8px;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 0.875rem;
+          }
+
+          h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+          }
+
+          p {
+            margin-top: 0;
+          }
+
+          .summary {
+            max-width: 68ch;
+            color: #475569;
+          }
+
+          .nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 24px 0 0;
+            list-style: none;
+          }
+
+          .nav a {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid #dbeafe;
+            color: #2563eb;
+            text-decoration: none;
+          }
+
+          .demo {
+            margin-top: 28px;
+            padding: 24px;
+            border-radius: 24px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+          }
+
+          .hint {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #eff6ff;
+            color: #1d4ed8;
+          }
+
+          .stack {
+            display: grid;
+            gap: 16px;
+          }
+
+          .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          }
+
+          button,
+          input,
+          select,
+          textarea {
+            font: inherit;
+          }
+
+
+  #open-help-dialog { inline-size: fit-content; border: 0; border-radius: 999px; background: #2563eb; color: white; padding: 10px 16px; cursor: pointer; }
+
+        </style>
+      </head>
+      <body>
+        <main>
+          <p class="eyebrow">07-ui-patterns / 02-dialog-component</p>
+          <h1>Wrap dialog in a custom element</h1>
+          <p class="summary">native dialog の振る舞いを活かしつつ、slots と custom event で再利用しやすい component にまとめます。</p>
+          <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../01-dialog-basics/index.html">← previous</a></li><li><a href="../03-popover-basics/index.html">next →</a></li></ul>
+          <section class="demo">
+
+<div class="stack">
+  <button id="open-help-dialog" type="button">open help dialog</button>
+  <help-dialog id="help-dialog">
+    <span slot="title">Release checklist</span>
+    <p>dialog 自体は native API に任せ、外側との接続だけ component 化します。</p>
+  </help-dialog>
+  <p id="help-dialog-log" class="hint">まだ dialog は開いていません。</p>
+</div>
+
+          </section>
+        </main>
+        <script>
+
+class HelpDialog extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    this.shadowRoot.innerHTML = `
+      <style>
+        dialog { border: 0; border-radius: 20px; padding: 24px; box-shadow: 0 32px 64px -36px rgba(15,23,42,.6); }
+        button { border: 0; border-radius: 999px; background: #2563eb; color: white; padding: 10px 16px; cursor: pointer; }
+      </style>
+      <dialog>
+        <header><slot name="title">Dialog title</slot></header>
+        <div><slot></slot></div>
+        <button type="button">close</button>
+      </dialog>
+    `;
+
+    const dialog = this.shadowRoot.querySelector('dialog');
+    this.shadowRoot.querySelector('button').addEventListener('click', () => {
+      dialog.close();
+      this.dispatchEvent(new CustomEvent('dialog-close', { bubbles: true, composed: true }));
+    });
+  }
+
+  show() {
+    this.shadowRoot.querySelector('dialog').showModal();
+  }
+}
+
+customElements.define('help-dialog', HelpDialog);
+
+const helpDialog = document.getElementById('help-dialog');
+document.getElementById('open-help-dialog').addEventListener('click', () => {
+  helpDialog.show();
+  document.getElementById('help-dialog-log').textContent = 'help dialog opened';
+});
+helpDialog.addEventListener('dialog-close', () => {
+  document.getElementById('help-dialog-log').textContent = 'help dialog closed';
+});
+
+        </script>
+      </body>
+    </html>
