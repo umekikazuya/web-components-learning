@@ -4,15 +4,15 @@ sandbox は topic-first に並んでいますが、理解しやすい順番で�
 
 ## トラック構成
 
-| Track | Focus | Steps | Related guides |
-| --- | --- | --- | --- |
-| `03-custom-elements` | 定義、lifecycle、属性反映、実践カード | 4 steps | `docs/chapters/01-custom-elements.md` |
-| `01-shadow-dom` | カプセル化、template、slots | 5 steps | `docs/chapters/02-shadow-dom.md`, `03-templates.md`, `04-slots-and-events.md` |
-| `04-accessibility` | semantic elements, aria state, relationships, disclosure, switch | 5 steps | `docs/chapters/05-accessibility-patterns.md` |
-| `02-styling` | CSS Custom Properties, `:host`, `:host-context`, `::part` | 5 steps | `docs/chapters/02-shadow-dom.md`, `05-accessibility-patterns.md` |
-| `05-forms-and-element-internals` | form association, reset, validation, disabled, composite control | 5 steps | `docs/chapters/06-forms-and-internals.md` |
-| `06-advanced-shadow-dom` | `adoptedStyleSheets`, shared sheets, Declarative Shadow DOM | 5 steps | `docs/chapters/07-advanced-shadow-dom.md` |
-| `07-ui-patterns` | `dialog`, `popover`, tabs, menu button | 6 steps | `docs/chapters/08-ui-patterns.md` |
+| Track                            | Focus                                                            | Steps   | Related guides                                                                |
+| -------------------------------- | ---------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------- |
+| `03-custom-elements`             | 定義、lifecycle、属性反映、実践カード                            | 4 steps | `docs/chapters/01-custom-elements.md`                                         |
+| `01-shadow-dom`                  | カプセル化、template、slots                                      | 5 steps | `docs/chapters/02-shadow-dom.md`, `03-templates.md`, `04-slots-and-events.md` |
+| `04-accessibility`               | semantic elements, aria state, relationships, disclosure, switch | 5 steps | `docs/chapters/05-accessibility-patterns.md`                                  |
+| `02-styling`                     | CSS Custom Properties, `:host`, `:host-context`, `::part`        | 5 steps | `docs/chapters/02-shadow-dom.md`, `05-accessibility-patterns.md`              |
+| `05-forms-and-element-internals` | form association, reset, validation, disabled, composite control | 5 steps | `docs/chapters/06-forms-and-internals.md`                                     |
+| `06-advanced-shadow-dom`         | `adoptedStyleSheets`, shared sheets, Declarative Shadow DOM      | 5 steps | `docs/chapters/07-advanced-shadow-dom.md`                                     |
+| `07-ui-patterns`                 | `dialog`, `popover`, tabs, menu button                           | 6 steps | `docs/chapters/08-ui-patterns.md`                                             |
 
 ## 見る順番
 

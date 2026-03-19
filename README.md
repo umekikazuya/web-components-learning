@@ -28,13 +28,13 @@
 npm install
 ```
 
-2. Vite の開発サーバーを起動します
+1. Vite の開発サーバーを起動します
 
 ```sh
 npm run dev
 ```
 
-3. ブラウザで sandbox 一覧を開きます
+1. ブラウザで sandbox 一覧を開きます
 
 ```text
 http://localhost:5173/examples/index.html
