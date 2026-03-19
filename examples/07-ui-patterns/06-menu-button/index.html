@@ -68,6 +68,31 @@
         text-decoration: none;
       }
 
+
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
       .demo {
         margin-top: 28px;
         padding: 24px;
@@ -97,11 +122,24 @@
         <li><a href="../../index.html">examples index</a></li>
         <li><a href="../05-tabs/index.html">← previous</a></li>
       </ul>
+      <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>button・role="menu"・role="menuitem" を組み合わせて、menu button pattern を実装します。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>05 の tabs に続いて、別の composite widget で focus management をもう一度確認します。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>aria-haspopup="menu"、menuitem の tabIndex 更新、Escape や外側 click で閉じる処理を見ます。</p>
+        </article>
+      </section>
+
       <section class="demo">
         <menu-button-demo id="menu-button-demo"></menu-button-demo>
-        <p class="hint" id="menu-button-log">
-          ArrowDown / ArrowUp で menu を開き、Escape で閉じられます。
-        </p>
+        <p class="hint" id="menu-button-log">まず More actions を ArrowDown か Enter で開き、Escape で閉じてから項目選択を試してください。</p>
       </section>
     </main>
     <script>
@@ -325,7 +363,7 @@ class MenuButtonDemo extends HTMLElement {
 customElements.define('menu-button-demo', MenuButtonDemo);
 
 document.getElementById('menu-button-demo').addEventListener('menu-select', (event) => {
-  document.getElementById('menu-button-log').textContent = `selected action: ${event.detail.command}`;
+  document.getElementById('menu-button-log').textContent = `action を選びました: ${event.detail.command}`;
 });
 
     </script>

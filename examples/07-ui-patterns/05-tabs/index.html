@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -112,7 +137,24 @@
           <h1>Build accessible tabs with roles and keyboard support</h1>
 <p class="summary">tabs は composite widget の代表例です。role と roving focus に加えて、Arrow / Home / End キーの最小サポートも実装します。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../04-popover-menu/index.html">← previous</a></li><li><a href="../06-menu-button/index.html">next →</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>role="tablist" / role="tab" / role="tabpanel" と roving focus で tabs を組み立てます。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>04 の command menu から、今度は composite widget 全体の focus 管理へ進みます。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>aria-selected、tabindex、Arrow / Home / End の keydown 処理を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
+
+<p class="hint">まず tab を click し、そのあと Arrow / Home / End で focus と panel がどう動くかを見てください。</p>
 
 <demo-tabs></demo-tabs>
 

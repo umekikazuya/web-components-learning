@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -112,7 +137,24 @@
           <h1>Update a shared stylesheet in place</h1>
           <p class="summary">`replaceSync()` で shared stylesheet を差し替えると、採用している複数 component がまとめて更新されます。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../02-shared-sheet/index.html">← previous</a></li><li><a href="../04-declarative-shadow-dom/index.html">next →</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>replaceSync() で shared stylesheet を更新し、複数 component へ一括反映します。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>02 の共有だけでなく、共有先すべてが更新を受けるところまで確認します。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>sheet.replaceSync(...) の更新と、同じ sheet を使う component 側の見た目変化を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
+
+<p class="hint">まずテーマ切り替えを試して、1 回の replaceSync() で複数 component が変わることを見てください。</p>
 
 <div class="stack">
   <label>

@@ -12,7 +12,7 @@
 
 ## 見るファイル
 
-- `examples/01-shadow-dom/03-template/index.html`
+- `examples/02-shadow-dom/03-template/index.html`
 
 ## この章で確認すること
 

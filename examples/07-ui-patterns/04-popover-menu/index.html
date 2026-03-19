@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -112,11 +137,26 @@
           <h1>Turn popover into a small command menu</h1>
           <p class="summary">popover を menu-like UI に広げ、選択イベントを外側に返す例です。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../03-popover-basics/index.html">← previous</a></li><li><a href="../05-tabs/index.html">next →</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>popover を command menu へ広げ、選択結果を CustomEvent で外へ返します。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>03 の単純な overlay から、内部 action を持つ UI pattern へ発展させます。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>popover 内の button 群、dispatchEvent(new CustomEvent(...))、外側のログ更新を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
 
 <div class="stack">
   <command-menu id="command-menu"></command-menu>
-  <p id="menu-log" class="hint">まだ command は選ばれていません。</p>
+  <p id="menu-log" class="hint">まず open commands を押してから preview / publish を選び、選択結果が外へ返ることを見てください。</p>
 </div>
 
           </section>
@@ -160,7 +200,7 @@ class CommandMenu extends HTMLElement {
 customElements.define('command-menu', CommandMenu);
 
 document.getElementById('command-menu').addEventListener('command-select', (event) => {
-  document.getElementById('menu-log').textContent = `selected command: ${event.detail.command}`;
+  document.getElementById('menu-log').textContent = `command を選びました: ${event.detail.command}`;
 });
 
         </script>

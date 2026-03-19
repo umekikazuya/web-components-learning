@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -112,7 +137,22 @@
           <h1>Upgrade declarative shadow content with behavior</h1>
           <p class="summary">Declarative Shadow DOM は初期レンダリングと相性がよく、その上に custom element が挙動だけを追加できます。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../04-declarative-shadow-dom/index.html">← previous</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>Declarative Shadow DOM で出した初期 UI を、custom element の upgrade で強化します。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>04 の HTML-defined shadow root に対し、この step では後から JavaScript の振る舞いを足します。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>既存 shadowRoot を利用する処理と、upgrade 後にイベントや状態を足す箇所を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
 
 <enhanced-card title="Server rendered card">
   <template shadowrootmode="open">
@@ -127,7 +167,7 @@
     </article>
   </template>
 </enhanced-card>
-<p id="enhance-log" class="hint">まだ操作していません。</p>
+<p id="enhance-log" class="hint">まず button を押して、最初の HTML にあとから runtime behavior だけ足していることを見てください。</p>
 
           </section>
         </main>
@@ -146,7 +186,7 @@ class EnhancedCard extends HTMLElement {
     }
 
     this.shadowRoot.querySelector('button').addEventListener('click', () => {
-      document.getElementById('enhance-log').textContent = 'Declarative content upgraded with runtime behavior.';
+      document.getElementById('enhance-log').textContent = 'runtime behavior を追加しました。最初の HTML にあとから対話だけを足しています。';
     });
   }
 }

@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -112,10 +137,25 @@
           <h1>Adopt a constructable stylesheet</h1>
           <p class="summary">`CSSStyleSheet` と `adoptedStyleSheets` を使うと、style 文字列ではなく stylesheet object を Shadow DOM に適用できます。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../02-shared-sheet/index.html">next →</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>CSSStyleSheet と adoptedStyleSheets を使って、constructable stylesheet の最小例を作ります。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>前stepはありません。ここでは &amp;lt;style&amp;gt; ではなく stylesheet object を渡す感覚を掴みます。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>new CSSStyleSheet()、replaceSync()、shadowRoot.adoptedStyleSheets の代入を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
 
 <constructable-card></constructable-card>
-<p class="hint">support がない環境でも page 自体は開きますが、この demo の本質は constructable stylesheet の採用です。</p>
+<p class="hint">まずコードで CSSStyleSheet を探し、<style> ではなく sheet object を採用していることを見てください。</p>
 
           </section>
         </main>

@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -114,7 +139,22 @@
           <h1>Wrap dialog in a custom element</h1>
           <p class="summary">native dialog の振る舞いを活かしつつ、slots と custom event で再利用しやすい component にまとめます。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../01-dialog-basics/index.html">← previous</a></li><li><a href="../03-popover-basics/index.html">next →</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>native dialog を custom element で包み、外側 API と内部実装を分けます。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>01 の素の dialog を、再利用しやすい wrapper component に発展させる step です。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>shadow DOM 内の dialog と、外側から open / close を操作するイベントや method を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
 
 <div class="stack">
   <button id="open-help-dialog" type="button">open help dialog</button>
@@ -122,7 +162,7 @@
     <span slot="title">Release checklist</span>
     <p>dialog 自体は native API に任せ、外側との接続だけ component 化します。</p>
   </help-dialog>
-  <p id="help-dialog-log" class="hint">まだ dialog は開いていません。</p>
+  <p id="help-dialog-log" class="hint">まず open help dialog を押して、dialog 自体は native に任せつつ外側 API だけ component 化していると考えてください。</p>
 </div>
 
           </section>
@@ -165,10 +205,10 @@ customElements.define('help-dialog', HelpDialog);
 const helpDialog = document.getElementById('help-dialog');
 document.getElementById('open-help-dialog').addEventListener('click', () => {
   helpDialog.show();
-  document.getElementById('help-dialog-log').textContent = 'help dialog opened';
+  document.getElementById('help-dialog-log').textContent = 'dialog を開きました。wrapper の外からでも open を呼べる点に注目してください。';
 });
 helpDialog.addEventListener('dialog-close', () => {
-  document.getElementById('help-dialog-log').textContent = 'help dialog closed';
+  document.getElementById('help-dialog-log').textContent = 'dialog を閉じました。close は native dialog に任せ、通知だけ外へ返しています。';
 });
 
         </script>

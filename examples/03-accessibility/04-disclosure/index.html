@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Reveal content with aria-expanded and aria-controls</title>
+	<style>
+		:root {
+			color-scheme: light;
+			font-family: Inter, system-ui, sans-serif;
+			line-height: 1.6;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			background: #f8fafc;
+			color: #0f172a;
+		}
+
+		main {
+			max-width: 980px;
+			margin: 0 auto;
+			padding: 36px 20px 72px;
+		}
+
+		.eyebrow {
+			margin: 0 0 8px;
+			color: #2563eb;
+			font-weight: 700;
+			font-size: 0.875rem;
+		}
+
+		h1 {
+			margin: 0 0 12px;
+			font-size: clamp(2rem, 4vw, 2.8rem);
+		}
+
+		p {
+			margin-top: 0;
+		}
+
+		.summary {
+			max-width: 68ch;
+			color: #475569;
+		}
+
+		.nav {
+			display: flex;
+			gap: 12px;
+			flex-wrap: wrap;
+			padding: 0;
+			margin: 24px 0 0;
+			list-style: none;
+		}
+
+		.nav a {
+			display: inline-flex;
+			align-items: center;
+			padding: 8px 12px;
+			border-radius: 999px;
+			background: white;
+			border: 1px solid #dbeafe;
+			color: #2563eb;
+			text-decoration: none;
+		}
+
+
+		.learning-guide {
+			display: grid;
+			gap: 14px;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			margin-top: 24px;
+		}
+
+		.guide-card {
+			padding: 16px 18px;
+			border-radius: 18px;
+			background: #f8fafc;
+			border: 1px solid #dbeafe;
+		}
+
+		.guide-card h2 {
+			margin: 0 0 8px;
+			font-size: 1rem;
+		}
+
+		.guide-card p {
+			margin-bottom: 0;
+			color: #334155;
+		}
+
+		.demo {
+			margin-top: 28px;
+			padding: 24px;
+			border-radius: 24px;
+			background: white;
+			border: 1px solid #e2e8f0;
+			box-shadow: 0 24px 48px -36px rgba(15, 23, 42, 0.45);
+		}
+
+		.hint {
+			margin-top: 20px;
+			padding: 14px 16px;
+			border-radius: 16px;
+			background: #eff6ff;
+			color: #1d4ed8;
+		}
+
+		.stack {
+			display: grid;
+			gap: 16px;
+		}
+
+		.grid {
+			display: grid;
+			gap: 16px;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		}
+
+		button,
+		input,
+		select {
+			font: inherit;
+		}
+	</style>
+</head>
+
+<body>
+	<main>
+		<p class="eyebrow">03-accessibility / 04-disclosure</p>
+		<h1>Reveal content with aria-expanded and aria-controls</h1>
+		<p class="summary">disclosure pattern では、ボタンの状態と、開閉対象の領域を同時に公開します。</p>
+		<ul class="nav">
+			<li><a href="../../index.html">examples index</a></li>
+			<li><a href="../03-described-by/index.html">← previous</a></li>
+			<li><a href="../05-switch/index.html">next →</a></li>
+		</ul>
+		<section class="learning-guide" aria-label="step guide">
+			<article class="guide-card">
+				<h2>この step で増えるもの</h2>
+				<p>aria-expanded と aria-controls を使って、開閉 UI の関係性を明示します。</p>
+			</article>
+			<article class="guide-card">
+				<h2>前stepと比べる点</h2>
+				<p>03 の説明文との関連づけから、今回は「button と panel の関係」へ進みます。</p>
+			</article>
+			<article class="guide-card">
+				<h2>コードで見る場所</h2>
+				<p>button 側の aria-expanded / aria-controls と、表示対象 panel の id を見ます。</p>
+			</article>
+		</section>
+
+		<section class="demo">
+
+			<p class="hint">まず open / close を切り替えて、aria-expanded と対象 panel が一緒に変わることを見てください。</p>
+
+
+			<faq-disclosure question="Why use Shadow DOM?">
+				Shadow DOM lets you isolate internal DOM and styles so global CSS and selectors do not accidentally leak in.
+			</faq-disclosure>
+
+		</section>
+	</main>
+	<script>
+
+		let disclosureId = 0;
+
+		class FaqDisclosure extends HTMLElement {
+			constructor() {
+				super();
+				this.attachShadow({mode: 'open'});
+				this.panelId = `disclosure-panel-${++disclosureId}`;
+				this.buttonId = `disclosure-button-${disclosureId}`;
+				this.expanded = false;
+			}
+
+			connectedCallback() {
+				this.render();
+			}
+
+			toggle() {
+				this.expanded = !this.expanded;
+				this.render();
+			}
+
+			render() {
+				const question = this.getAttribute('question') ?? 'Question';
+				this.shadowRoot.innerHTML = `
+      <style>
+        article {
+          padding: 22px;
+          border-radius: 20px;
+          background: white;
+          border: 1px solid #dbeafe;
+        }
+
+        button {
+          inline-size: 100%;
+          text-align: left;
+          border: 0;
+          border-radius: 14px;
+          background: #eff6ff;
+          padding: 14px 16px;
+          color: #1d4ed8;
+          font-weight: 700;
+          cursor: pointer;
+        }
+
+        [role="region"] {
+          margin-top: 14px;
+          color: #334155;
+          display: ${this.expanded ? 'block' : 'none'};
+        }
+      </style>
+      <article>
+        <button id="${this.buttonId}" type="button" aria-expanded="${this.expanded ? 'true' : 'false'}" aria-controls="${this.panelId}">
+          ${question}
+        </button>
+        <div id="${this.panelId}" role="region" aria-labelledby="${this.buttonId}">
+          <slot></slot>
+        </div>
+      </article>
+    `;
+
+				this.shadowRoot.querySelector('button').addEventListener('click', () => this.toggle());
+			}
+		}
+
+		customElements.define('faq-disclosure', FaqDisclosure);
+
+	</script>
+</body>
+
+</html>

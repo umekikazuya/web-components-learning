@@ -1,25 +1,25 @@
 # Curriculum
 
-sandbox は topic-first に並んでいますが、理解しやすい順番で見るなら `03-custom-elements` → `01-shadow-dom` → `04-accessibility` → `02-styling` → `05-forms-and-element-internals` → `06-advanced-shadow-dom` → `07-ui-patterns` がおすすめです。
+sandbox は topic-first に並んでいますが、理解しやすい順番で見るなら `01-custom-elements` → `02-shadow-dom` → `03-accessibility` → `04-styling` → `05-forms-and-element-internals` → `06-advanced-shadow-dom` → `07-ui-patterns` がおすすめです。
 
 ## トラック構成
 
 | Track                            | Focus                                                            | Steps   | Related guides                                                                |
 | -------------------------------- | ---------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------- |
-| `03-custom-elements`             | 定義、lifecycle、属性反映、実践カード                            | 4 steps | `docs/chapters/01-custom-elements.md`                                         |
-| `01-shadow-dom`                  | カプセル化、template、slots                                      | 5 steps | `docs/chapters/02-shadow-dom.md`, `03-templates.md`, `04-slots-and-events.md` |
-| `04-accessibility`               | semantic elements, aria state, relationships, disclosure, switch | 5 steps | `docs/chapters/05-accessibility-patterns.md`                                  |
-| `02-styling`                     | CSS Custom Properties, `:host`, `:host-context`, `::part`        | 5 steps | `docs/chapters/02-shadow-dom.md`, `05-accessibility-patterns.md`              |
+| `01-custom-elements`             | 定義、lifecycle、属性反映、実践カード                            | 4 steps | `docs/chapters/01-custom-elements.md`                                         |
+| `02-shadow-dom`                  | カプセル化、template、slots                                      | 5 steps | `docs/chapters/02-shadow-dom.md`, `03-templates.md`, `04-slots-and-events.md` |
+| `03-accessibility`               | semantic elements, aria state, relationships, disclosure, switch | 5 steps | `docs/chapters/05-accessibility-patterns.md`                                  |
+| `04-styling`                     | CSS Custom Properties, `:host`, `:host-context`, `::part`        | 5 steps | `docs/chapters/02-shadow-dom.md`, `05-accessibility-patterns.md`              |
 | `05-forms-and-element-internals` | form association, reset, validation, disabled, composite control | 5 steps | `docs/chapters/06-forms-and-internals.md`                                     |
 | `06-advanced-shadow-dom`         | `adoptedStyleSheets`, shared sheets, Declarative Shadow DOM      | 5 steps | `docs/chapters/07-advanced-shadow-dom.md`                                     |
 | `07-ui-patterns`                 | `dialog`, `popover`, tabs, menu button                           | 6 steps | `docs/chapters/08-ui-patterns.md`                                             |
 
 ## 見る順番
 
-1. `examples/03-custom-elements/` で独自要素の定義と属性反映を掴む
-2. `examples/01-shadow-dom/` で Shadow DOM, template, slots を比較する
-3. `examples/04-accessibility/` で意味・状態・関係性をどう表現するかを見る
-4. `examples/02-styling/` でスタイリング API を整理する
+1. `examples/01-custom-elements/` で Web Components の入口として独自要素の定義と属性反映を掴む
+2. `examples/02-shadow-dom/` で Shadow DOM, template, slots を比較する
+3. `examples/03-accessibility/` で意味・状態・関係性をどう表現するかを見る
+4. `examples/04-styling/` でスタイリング API を整理する
 5. `examples/05-forms-and-element-internals/` で form 参加と `ElementInternals` を学ぶ
 6. `examples/06-advanced-shadow-dom/` で最新の Shadow DOM 関連 API を試す
 7. `examples/07-ui-patterns/` で実践的な UI pattern を標準 API で組み立てる
@@ -37,10 +37,10 @@ sandbox は topic-first に並んでいますが、理解しやすい順番で�
 
 まずは次の順番だけでも、この教材の軸は十分に掴めます。
 
-1. `03-custom-elements`
-2. `01-shadow-dom`
-3. `04-accessibility`
-4. `02-styling`
+1. `01-custom-elements`
+2. `02-shadow-dom`
+3. `03-accessibility`
+4. `04-styling`
 
 ここまで終えたら、用途に応じて次へ進みます。
 
@@ -50,6 +50,6 @@ sandbox は topic-first に並んでいますが、理解しやすい順番で�
 
 ## 基礎 / 発展 / 実運用
 
-- **基礎**: `03-custom-elements`, `01-shadow-dom`, `04-accessibility`, `02-styling`
+- **基礎**: `01-custom-elements`, `02-shadow-dom`, `03-accessibility`, `04-styling`
 - **発展**: `05-forms-and-element-internals`, `06-advanced-shadow-dom`, `07-ui-patterns`
 - **実運用**: `docs/compatibility.md`, `docs/testing.md`

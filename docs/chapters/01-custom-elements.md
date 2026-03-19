@@ -14,10 +14,10 @@
 
 ## 見るファイル
 
-- `examples/03-custom-elements/01-define-element/index.html`
-- `examples/03-custom-elements/02-lifecycle/index.html`
-- `examples/03-custom-elements/03-attributes/index.html`
-- `examples/03-custom-elements/04-practical-card/index.html`
+- `examples/01-custom-elements/01-define-element/index.html`
+- `examples/01-custom-elements/02-lifecycle/index.html`
+- `examples/01-custom-elements/03-attributes/index.html`
+- `examples/01-custom-elements/04-practical-card/index.html`
 
 ## この章で確認すること
 

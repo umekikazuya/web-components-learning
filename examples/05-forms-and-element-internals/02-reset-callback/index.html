@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -114,7 +139,24 @@
           <h1>Reset internal state with formResetCallback</h1>
           <p class="summary">form reset 時に custom element の内部値も初期状態へ戻せることを確認します。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../01-associated-control/index.html">← previous</a></li><li><a href="../03-validation/index.html">next →</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>formResetCallback() を実装して、native form の reset に追従させます。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>01 が submit 参加なら、この step は form から飛んでくる lifecycle を扱います。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>formResetCallback() の中で state を初期化し、再描画や値更新へ戻す流れを見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
+
+<p class="hint">まず値を変えてから reset し、custom element の内部状態も初期値へ戻ることを見てください。</p>
 
 <form id="reset-form" class="stack">
   <reset-field name="nickname" value="copilot"></reset-field>

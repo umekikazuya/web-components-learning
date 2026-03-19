@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -112,7 +137,22 @@
           <h1>Start with Declarative Shadow DOM</h1>
           <p class="summary">`<template shadowrootmode="open">` を使うと、HTML 側に shadow root の初期内容を書けます。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../03-updating-sheet/index.html">← previous</a></li><li><a href="../05-upgrade-declarative-shadow/index.html">next →</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>&amp;lt;template shadowrootmode="open"&amp;gt; を使って、HTML だけで shadow root の初期内容を書きます。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>01〜03 が JavaScript で shadow root を組み立てる流れなら、この step は HTML-first です。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>template shadowrootmode、connectedCallback() 内の fallback、support note の判定を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
 
 <declarative-card>
   <template shadowrootmode="open">
@@ -127,7 +167,7 @@
     </article>
   </template>
 </declarative-card>
-<p class="hint" id="dsd-log"></p>
+<p class="hint" id="dsd-log">まず markup を見て、template shadowrootmode だけで初期 UI を書いていることを確認してください。</p>
 
           </section>
         </main>
@@ -142,7 +182,7 @@ class DeclarativeCard extends HTMLElement {
 
     const status = this.shadowRoot.querySelector('.status');
     if (status) {
-      status.textContent = 'shadow root was available before upgrade';
+      status.textContent = 'HTML だけで shadow root が用意され、そのあと custom element が upgrade されました。';
     }
   }
 }
@@ -151,8 +191,8 @@ customElements.define('declarative-card', DeclarativeCard);
 
 const supportsDeclarativeShadowDom = 'shadowRootMode' in HTMLTemplateElement.prototype;
 document.getElementById('dsd-log').textContent = document.querySelector('declarative-card').shadowRoot
-  ? `support note: ${supportsDeclarativeShadowDom ? 'Declarative Shadow DOM is available or was parsed before upgrade.' : 'Declarative Shadow DOM is not available here, so the demo falls back to attachShadow().'}` 
-  : 'No shadow root available.';
+  ? `まず markup を見てください。support note: ${supportsDeclarativeShadowDom ? 'Declarative Shadow DOM は利用可能、または upgrade 前に parse されています。' : 'この環境では Declarative Shadow DOM を使えないため、attachShadow() へ fallback しています。'}`
+  : 'shadow root を確認できませんでした。';
 
         </script>
       </body>

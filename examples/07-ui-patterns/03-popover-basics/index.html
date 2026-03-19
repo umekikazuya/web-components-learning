@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -115,7 +140,22 @@
           <h1>Toggle a popover with standard attributes</h1>
           <p class="summary">`popover` と `popovertarget` を使うと、軽量な overlay を HTML 属性だけで構成できます。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../02-dialog-component/index.html">← previous</a></li><li><a href="../04-popover-menu/index.html">next →</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>popover 属性と popovertarget を使って、軽量 overlay の最小例を作ります。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>dialog より軽い primitive として、開閉の責務がどう変わるかを見ます。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>popover を持つ要素、trigger 側の popovertarget、support note の表示を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
 
 <div class="stack">
   <button type="button" popovertarget="docs-popover">toggle popover</button>
@@ -123,7 +163,7 @@
     <h2>Popover note</h2>
     <p>`popover` は light-dismiss を含む軽量 overlay API です。</p>
   </div>
-  <p id="popover-log" class="hint"></p>
+  <p id="popover-log" class="hint">まず toggle popover を押して開閉し、light-dismiss のような軽さを dialog と比べてください。</p>
 </div>
 
           </section>
@@ -132,8 +172,8 @@
 
 const supportsPopover = 'showPopover' in HTMLElement.prototype;
 document.getElementById('popover-log').textContent = supportsPopover
-  ? 'support note: native popover API is available in this browser.'
-  : 'support note: popover API is not available in this browser, so this demo acts as markup-only reference.';
+  ? 'まず toggle popover を押してみてください。support note: このブラウザでは native popover API を使えます。'
+  : 'まず markup を見てください。support note: このブラウザでは popover API を使えないため、構造の参考として読む page です。';
 
         </script>
       </body>

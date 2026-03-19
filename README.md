@@ -44,10 +44,10 @@ http://localhost:5173/examples/index.html
 
 学習の入口としては次の順番がおすすめです。
 
-1. `examples/03-custom-elements/`
-2. `examples/01-shadow-dom/`
-3. `examples/04-accessibility/`
-4. `examples/02-styling/`
+1. `examples/01-custom-elements/`
+2. `examples/02-shadow-dom/`
+3. `examples/03-accessibility/`
+4. `examples/04-styling/`
 5. `examples/05-forms-and-element-internals/`
 6. `examples/06-advanced-shadow-dom/`
 7. `examples/07-ui-patterns/`
@@ -66,10 +66,10 @@ http://localhost:5173/examples/index.html
 
 最初から全部を追わなくても大丈夫です。step-by-step で入るなら、まずは次の 4 track で十分です。
 
-1. `examples/03-custom-elements/` で独自要素の入口を掴む
-2. `examples/01-shadow-dom/` でカプセル化と composition を見る
-3. `examples/04-accessibility/` で意味・状態・関係性を扱う
-4. `examples/02-styling/` で component styling の選択肢を整理する
+1. `examples/01-custom-elements/` で Web Components に入る最初の足場を作る
+2. `examples/02-shadow-dom/` でカプセル化と composition を見る
+3. `examples/03-accessibility/` で意味・状態・関係性を扱う
+4. `examples/04-styling/` で component styling の選択肢を整理する
 
 そのあとで `05-forms-and-element-internals`, `06-advanced-shadow-dom`, `07-ui-patterns` に進むと、発展トピックとして読みやすくなります。
 
@@ -84,10 +84,10 @@ docs/
 examples/
   README.md
   index.html
-  01-shadow-dom/
-  02-styling/
-  03-custom-elements/
-  04-accessibility/
+  01-custom-elements/
+  02-shadow-dom/
+  03-accessibility/
+  04-styling/
   05-forms-and-element-internals/
   06-advanced-shadow-dom/
   07-ui-patterns/

@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -112,7 +137,24 @@
           <h1>Share one stylesheet across multiple components</h1>
           <p class="summary">1 枚の stylesheet object を複数 component で使い回せるのが constructable stylesheet の強みです。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../01-constructable-sheet/index.html">← previous</a></li><li><a href="../03-updating-sheet/index.html">next →</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>1 枚の stylesheet を複数 component に共有して、同じ theme を再利用します。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>01 の 1 component 用 stylesheet が、この step では共有リソースになります。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>共有している sheet 変数と、複数の shadowRoot へ adoptedStyleSheets している箇所を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
+
+<p class="hint">まず 2 つの component を見比べて、1 枚の stylesheet を共有している前提を意識してください。</p>
 
 <div class="grid">
   <shared-sheet-card label="A"></shared-sheet-card>

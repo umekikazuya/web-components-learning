@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -115,7 +140,22 @@
           <h1>Compose a rating input with ElementInternals</h1>
           <p class="summary">最後は実践例として、star rating を form-associated custom element にまとめます。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../04-disabled-callback/index.html">← previous</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>submit / reset / validation などをまとめて、rating input という実践例にします。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>01〜04 で分けて見た責務を 1 つの custom form control に統合します。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>attachInternals()、状態更新、setFormValue()、setValidity() が一緒に出てくる箇所を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
 
 <form id="rating-form" class="stack">
   <rating-input name="rating" required></rating-input>
@@ -124,7 +164,7 @@
     <button type="reset">reset</button>
   </div>
 </form>
-<p id="rating-log" class="hint">まだ評価を送信していません。</p>
+<p id="rating-log" class="hint">まず星を選ばず submit し、そのあと星を選んで再度 submit してみてください。</p>
 
           </section>
         </main>
@@ -196,11 +236,11 @@ document.getElementById('rating-form').addEventListener('submit', (event) => {
   const form = event.currentTarget;
   const isValid = form.reportValidity();
   if (!isValid) {
-    document.getElementById('rating-log').textContent = 'submit blocked: pick a rating first';
+    document.getElementById('rating-log').textContent = '送信できませんでした。先に rating を 1 つ選んでください。';
     return;
   }
   const formData = new FormData(form);
-  document.getElementById('rating-log').textContent = `submitted rating=${formData.get('rating')}`;
+  document.getElementById('rating-log').textContent = `送信しました: rating=${formData.get('rating')}`;
 });
 
         </script>

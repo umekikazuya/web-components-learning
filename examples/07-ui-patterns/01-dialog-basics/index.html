@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -115,7 +140,22 @@
           <h1>Open and close a native dialog</h1>
           <p class="summary">まずは `<dialog>` を素で使い、`showModal()` と `close()` の基本を確認します。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../02-dialog-component/index.html">next →</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>&amp;lt;dialog&amp;gt; をそのまま使い、showModal() と close() の基本フローを確認します。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>前stepはありません。まずは native primitive 自体がどこまでやってくれるかを見ます。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>showModal() を呼ぶ click handler と、close event で状態を書き戻す処理を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
 
 <div class="stack">
   <button id="open-native-dialog" type="button">open dialog</button>
@@ -126,7 +166,7 @@
       <button type="submit">close</button>
     </form>
   </dialog>
-  <p id="dialog-log" class="hint">まだ dialog は開いていません。</p>
+  <p id="dialog-log" class="hint">まず open dialog を押して、Esc か close で閉じる流れを 1 回試してください。</p>
 </div>
 
           </section>
@@ -136,10 +176,10 @@
 const nativeDialog = document.getElementById('native-dialog');
 document.getElementById('open-native-dialog').addEventListener('click', () => {
   nativeDialog.showModal();
-  document.getElementById('dialog-log').textContent = 'dialog opened';
+  document.getElementById('dialog-log').textContent = 'dialog を開きました。Esc か close で閉じると流れが確認できます。';
 });
 nativeDialog.addEventListener('close', () => {
-  document.getElementById('dialog-log').textContent = 'dialog closed';
+  document.getElementById('dialog-log').textContent = 'dialog を閉じました。もう一度 open dialog を押すと流れを繰り返せます。';
 });
 
         </script>

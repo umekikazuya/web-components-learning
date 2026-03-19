@@ -13,8 +13,8 @@
 
 ## 見るファイル
 
-- `examples/01-shadow-dom/04-default-slot/index.html`
-- `examples/01-shadow-dom/05-named-slots/index.html`
+- `examples/02-shadow-dom/04-default-slot/index.html`
+- `examples/02-shadow-dom/05-named-slots/index.html`
 
 ## この章で確認すること
 

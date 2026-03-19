@@ -15,11 +15,11 @@ Web Components を「動く UI」で終わらせず、名前・状態・関係�
 
 ## 見るファイル
 
-- `examples/04-accessibility/01-native-button/index.html`
-- `examples/04-accessibility/02-aria-pressed/index.html`
-- `examples/04-accessibility/03-described-by/index.html`
-- `examples/04-accessibility/04-disclosure/index.html`
-- `examples/04-accessibility/05-switch/index.html`
+- `examples/03-accessibility/01-native-button/index.html`
+- `examples/03-accessibility/02-aria-pressed/index.html`
+- `examples/03-accessibility/03-described-by/index.html`
+- `examples/03-accessibility/04-disclosure/index.html`
+- `examples/03-accessibility/05-switch/index.html`
 
 ## この章で確認すること
 

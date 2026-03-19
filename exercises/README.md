@@ -14,26 +14,26 @@ exercise は全部やる前提ではなく、各 track を読み終えたあと�
 
 step-by-step で進めるなら、まずは次の 4 問がおすすめです。
 
-1. `03-custom-elements/03-attributes` の `size` 属性を追加する
-2. `01-shadow-dom/03-template` に badge や subtitle を足す
-3. `04-accessibility/03-described-by` で help text / error text を切り替える
-4. `02-styling/02-host-selector` で `size="compact"` を試す
+1. `01-custom-elements/03-attributes` の `size` 属性を追加する
+2. `02-shadow-dom/03-template` に badge や subtitle を足す
+3. `03-accessibility/03-described-by` で help text / error text を切り替える
+4. `04-styling/02-host-selector` で `size="compact"` を試す
 
 この 4 問で「定義する」「閉じ込める」「意味をつなぐ」「見た目を公開する」の基本を復習できます。
 
-## 03 Custom Elements
+## 01 Custom Elements
 
 - `03-attributes` の `status-pill` に `size` 属性を追加する
 - `04-practical-card` に `href` 属性を追加し、CTA の行き先を変えられるようにする
 - `02-lifecycle` に `adoptedCallback` の説明を追記し、iframe や別 document の移動時を調べる
 
-## 01 Shadow DOM
+## 02 Shadow DOM
 
 - `01-without-shadow` と `02-first-shadow` の両方で同じ global CSS を追加し、差を説明する
 - `03-template` に badge や subtitle を追加し、template の保守性を体感する
 - `05-named-slots` に extra な named slot を足し、API が複雑になりすぎない境界を考える
 
-## 04 Accessibility
+## 03 Accessibility
 
 - `01-native-button` を `div tabindex="0"` ベースでも作ってみて、native button と何が違うか整理する
 - `02-aria-pressed` に `disabled` 属性を追加し、見た目と `disabled` / `aria-disabled` の扱いを考える
@@ -41,7 +41,7 @@ step-by-step で進めるなら、まずは次の 4 問がおすすめです。
 - `04-disclosure` にキーボードショートカットを加える前に、それが本当に必要かを検討する
 - `05-switch` を `ElementInternals` に発展させるなら、どこを internal state に寄せるか考える
 
-## 02 Styling
+## 04 Styling
 
 - `01-css-custom-properties` に spacing 用の custom property を追加する
 - `02-host-selector` で `size="compact"` を受け取り、`:host([size="compact"])` を試す

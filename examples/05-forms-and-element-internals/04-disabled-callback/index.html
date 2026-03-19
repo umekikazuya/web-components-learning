@@ -68,7 +68,32 @@
             text-decoration: none;
           }
 
-          .demo {
+    
+      .learning-guide {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .guide-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+      }
+
+      .guide-card h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .guide-card p {
+        margin-bottom: 0;
+        color: #334155;
+      }
+
+      .demo {
             margin-top: 28px;
             padding: 24px;
             border-radius: 24px;
@@ -114,7 +139,22 @@
           <h1>React to disabled state with formDisabledCallback</h1>
           <p class="summary">fieldset の disabled 状態が custom element に伝わると、内部 input を一括で操作不能にできます。</p>
           <ul class="nav"><li><a href="../../index.html">examples index</a></li><li><a href="../03-validation/index.html">← previous</a></li><li><a href="../05-rating-input/index.html">next →</a></li></ul>
-          <section class="demo">
+          <section class="learning-guide" aria-label="step guide">
+        <article class="guide-card">
+          <h2>この step で増えるもの</h2>
+          <p>formDisabledCallback() を使って、fieldset disabled などの状態変化へ追従します。</p>
+        </article>
+        <article class="guide-card">
+          <h2>前stepと比べる点</h2>
+          <p>03 が validity なら、この step は disabled という form state への追従です。</p>
+        </article>
+        <article class="guide-card">
+          <h2>コードで見る場所</h2>
+          <p>formDisabledCallback() と、見た目・操作可否を切り替える render() の分岐を見ます。</p>
+        </article>
+      </section>
+
+      <section class="demo">
 
 <div class="stack">
   <button id="toggle-fieldset" type="button">fieldset disabled を切り替える</button>
@@ -123,7 +163,7 @@
       <availability-field name="assignee" value="open"></availability-field>
     </fieldset>
   </form>
-  <p id="disabled-log" class="hint">現在の状態: enabled</p>
+  <p id="disabled-log" class="hint">まず disabled を切り替えて、fieldset の状態が内部 input に伝わることを見てください。現在の状態: enabled</p>
 </div>
 
           </section>
@@ -147,7 +187,7 @@ class AvailabilityField extends HTMLElement {
   formDisabledCallback(disabled) {
     this.disabled = disabled;
     this.render();
-    document.getElementById('disabled-log').textContent = `現在の状態: ${disabled ? 'disabled' : 'enabled'}`;
+    document.getElementById('disabled-log').textContent = `disabled を切り替えました。現在の状態: ${disabled ? 'disabled' : 'enabled'}`;
   }
 
   render() {
