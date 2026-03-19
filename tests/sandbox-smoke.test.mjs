@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 
 const requiredFiles = [
+  'examples/shared/example-page.css',
   'examples/05-forms-and-element-internals/01-associated-control/index.html',
   'examples/05-forms-and-element-internals/05-rating-input/index.html',
   'examples/06-advanced-shadow-dom/01-constructable-sheet/index.html',

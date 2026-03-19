@@ -84,6 +84,8 @@ docs/
 examples/
   README.md
   index.html
+  shared/
+    example-page.css
   01-custom-elements/
   02-shadow-dom/
   03-accessibility/
