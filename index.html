@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Components Learning</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="site-shell">
+      <section class="hero">
+        <p class="eyebrow">Step-by-step curriculum</p>
+        <h1>Web Components を体系的に学ぶ教材</h1>
+        <p class="lead">
+          フロントエンド経験者向けに、標準 API だけで UI コンポーネントを作る流れを
+          `Custom Elements` から `ElementInternals` まで順番に学べる教材です。
+        </p>
+        <div class="actions">
+          <a class="button primary" href="./examples/index.html">カリキュラムを開く</a>
+          <a class="button secondary" href="./README.md">README を読む</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <h2>この教材で扱うこと</h2>
+          <p>各ステップは「学習目標」「ライブデモ」「ソース」「確認ポイント」で構成しています。</p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Custom Elements</h3>
+            <p>独自要素の定義、ライフサイクル、属性監視から始めます。</p>
+          </article>
+          <article class="card">
+            <h3>Shadow DOM / Slot</h3>
+            <p>スタイルのカプセル化と構造の再利用を、実例で確認します。</p>
+          </article>
+          <article class="card">
+            <h3>実務で必要な話題</h3>
+            <p>イベント設計、テーマ変更、アクセシビリティ、フォーム連携まで扱います。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section split">
+        <article class="card">
+          <h2>学習の進め方</h2>
+          <ol class="ordered-list">
+            <li>まずは各ステップを順番に開いて、ライブデモを触る</li>
+            <li>`demo.js` を読んで API と責務を確認する</li>
+            <li>練習課題の変更を試して、挙動の違いを比べる</li>
+            <li>次のステップへ進み、ひとつ前の知識を土台に増やしていく</li>
+          </ol>
+        </article>
+
+        <article class="card">
+          <h2>想定読者</h2>
+          <p>
+            HTML / CSS / JavaScript の基礎は理解しており、Web Components をこれから体系的に学びたい人を想定しています。
+          </p>
+          <p>
+            基本的な DOM 操作やイベント処理は既知とし、各 API がコンポーネント設計でどう役立つかに重点を置いています。
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 2 | Attributes and properties</title>
+    <link rel="stylesheet" href="../../shared/example-page.css">
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body>
+    <main class="example-shell">
+      <nav class="breadcrumbs">
+        <a href="../../../index.html">Home</a> / <a href="../../index.html">Curriculum</a> / Step 2
+      </nav>
+
+      <header class="page-header">
+        <h1>Step 2: Attributes / Properties をそろえる</h1>
+        <p>
+          ここでは `observedAttributes` と property setter を使って、コンポーネントの公開 API を揃えます。
+          HTML からも JavaScript からも同じ状態を操作できるようにするのが狙いです。
+        </p>
+        <div class="meta">
+          <span>observedAttributes</span>
+          <span>attributeChangedCallback</span>
+          <span>property setter</span>
+        </div>
+      </header>
+
+      <section class="content-grid">
+        <article class="card">
+          <h2>このステップで学ぶこと</h2>
+          <ul>
+            <li>属性の変化に応じて自動再描画する方法</li>
+            <li>property と attribute の責務をそろえる考え方</li>
+            <li>コンポーネントの外側から見た API を設計する視点</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>ライブデモ</h2>
+          <div class="preview stack">
+            <status-badge id="badge" label="Build" tone="ready"></status-badge>
+            <label class="field">
+              <span>label 属性</span>
+              <input id="label-input" type="text" value="Build">
+            </label>
+            <label class="field">
+              <span>tone 属性</span>
+              <select id="tone-select">
+                <option value="ready">ready</option>
+                <option value="warn">warn</option>
+                <option value="idle">idle</option>
+              </select>
+            </label>
+            <div class="button-row">
+              <button id="apply-property" type="button">property 経由で反映</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>ソースを見る</h2>
+          <p>
+            `static observedAttributes` で監視対象を宣言し、setter から `setAttribute()` に寄せる実装にしています。
+          </p>
+          <div class="source-links">
+            <a class="link-button secondary" href="./index.html">index.html</a>
+            <a class="link-button secondary" href="./demo.js">demo.js</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>確認ポイント</h2>
+          <ul>
+            <li>外側から見た API が 2 系統に分かれないよう、property は attribute に寄せると扱いやすくなります。</li>
+            <li>属性変更で再描画するなら、描画の入口は 1 つにまとめるのが安全です。</li>
+            <li>次のステップでは見た目と DOM 構造を Shadow DOM に閉じ込めます。</li>
+          </ul>
+          <p class="next-link">
+            <a class="link-button" href="../../02-shadow-dom/01-shadow-root/index.html">次のステップへ</a>
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

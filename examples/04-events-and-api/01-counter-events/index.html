@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 5 | CustomEvent and public API</title>
+    <link rel="stylesheet" href="../../shared/example-page.css">
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body>
+    <main class="example-shell">
+      <nav class="breadcrumbs">
+        <a href="../../../index.html">Home</a> / <a href="../../index.html">Curriculum</a> / Step 5
+      </nav>
+
+      <header class="page-header">
+        <h1>Step 5: 状態変化を `CustomEvent` で外へ伝える</h1>
+        <p>
+          コンポーネント内部の変化は、外側が購読できるイベントとして公開すると扱いやすくなります。
+          必要なら method も足して、宣言的な API と命令的な API を使い分けます。
+        </p>
+        <div class="meta">
+          <span>CustomEvent</span>
+          <span>public method</span>
+          <span>component API</span>
+        </div>
+      </header>
+
+      <section class="content-grid">
+        <article class="card">
+          <h2>このステップで学ぶこと</h2>
+          <ul>
+            <li>内部状態を `detail` 付きのイベントで外へ渡す方法</li>
+            <li>`bubbles` と `composed` を設定して Shadow DOM の外でも受け取れるようにすること</li>
+            <li>必要最小限の method を併設して操作しやすくすること</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>ライブデモ</h2>
+          <div class="preview stack">
+            <counter-panel id="counter-panel"></counter-panel>
+            <div class="button-row">
+              <button id="reset-counter" class="secondary" type="button">外側から reset() を呼ぶ</button>
+            </div>
+            <div class="inline-note success" id="counter-output">まだイベントは発火していません。</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>ソースを見る</h2>
+          <p>
+            カウンター自体は Shadow DOM の中にあり、外側のページは `count-change` を listen するだけにしています。
+          </p>
+          <div class="source-links">
+            <a class="link-button secondary" href="./index.html">index.html</a>
+            <a class="link-button secondary" href="./demo.js">demo.js</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>確認ポイント</h2>
+          <ul>
+            <li>利用側は内部実装ではなく、イベント名と payload だけを知っていれば十分です。</li>
+            <li>公開 method は多すぎると密結合になるので、必要最小限に絞るのが基本です。</li>
+            <li>次は CSS カスタムプロパティでテーマ変更しやすい設計に進みます。</li>
+          </ul>
+          <p class="next-link">
+            <a class="link-button" href="../../05-styling/01-themeable-callout/index.html">次のステップへ</a>
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

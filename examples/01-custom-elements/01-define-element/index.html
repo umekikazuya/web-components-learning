@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 1 | Define a custom element</title>
+    <link rel="stylesheet" href="../../shared/example-page.css">
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body>
+    <main class="example-shell">
+      <nav class="breadcrumbs">
+        <a href="../../../index.html">Home</a> / <a href="../../index.html">Curriculum</a> / Step 1
+      </nav>
+
+      <header class="page-header">
+        <h1>Step 1: Custom Elements の最小構成</h1>
+        <p>
+          まずは独自タグを 1 つ定義し、`connectedCallback()` で初期描画するところから始めます。
+          一番小さい形で「ブラウザに新しい要素を教える」と何が起きるかを掴むステップです。
+        </p>
+        <div class="meta">
+          <span>Custom Elements</span>
+          <span>connectedCallback</span>
+          <span>最小実装</span>
+        </div>
+      </header>
+
+      <section class="content-grid">
+        <article class="card">
+          <h2>このステップで学ぶこと</h2>
+          <ul>
+            <li>`customElements.define()` で独自タグを登録する流れ</li>
+            <li>`connectedCallback()` が DOM に接続されたときに呼ばれること</li>
+            <li>通常の HTML タグと同じように独自要素を配置できること</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>ライブデモ</h2>
+          <div class="preview stack">
+            <hello-greeter id="greeter" name="Web Components"></hello-greeter>
+            <div class="button-row">
+              <button id="toggle-name" type="button">name 属性を切り替える</button>
+              <button id="rerender" class="secondary" type="button">render() を再実行する</button>
+            </div>
+            <div class="inline-note" id="render-status">まだ操作していません。</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>ソースを見る</h2>
+          <p>HTML 側では独自タグを置き、`demo.js` でクラス定義とイベントをつないでいます。</p>
+          <div class="source-links">
+            <a class="link-button secondary" href="./index.html">index.html</a>
+            <a class="link-button secondary" href="./demo.js">demo.js</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>確認ポイント</h2>
+          <ul>
+            <li>要素は登録されるまでただの未知のタグとして扱われます。</li>
+            <li>`connectedCallback()` は DOM に置かれたタイミングで実行されます。</li>
+            <li>属性を変えても自動再描画はされないので、次のステップで改善します。</li>
+          </ul>
+          <p class="next-link">
+            <a class="link-button" href="../02-observed-attributes/index.html">次のステップへ</a>
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

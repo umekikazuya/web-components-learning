@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 6 | Themeable component</title>
+    <link rel="stylesheet" href="../../shared/example-page.css">
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body>
+    <main class="example-shell">
+      <nav class="breadcrumbs">
+        <a href="../../../index.html">Home</a> / <a href="../../index.html">Curriculum</a> / Step 6
+      </nav>
+
+      <header class="page-header">
+        <h1>Step 6: 外側からテーマ変更しやすいコンポーネントにする</h1>
+        <p>
+          見た目を完全に固定するのではなく、CSS カスタムプロパティを公開しておくと、
+          利用側はブランドカラーや警告色だけを差し替えられます。
+        </p>
+        <div class="meta">
+          <span>CSS custom properties</span>
+          <span>:host</span>
+          <span>theming</span>
+        </div>
+      </header>
+
+      <section class="content-grid">
+        <article class="card">
+          <h2>このステップで学ぶこと</h2>
+          <ul>
+            <li>Shadow DOM の中で CSS カスタムプロパティを使う方法</li>
+            <li>利用側が変えたい値だけを公開する設計</li>
+            <li>構造は固定しつつ、見た目の拡張余地を残す考え方</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>ライブデモ</h2>
+          <div class="preview stack">
+            <callout-box id="callout-box" heading="Design review">
+              次のデザインレビューでは、公開 API の命名と CSS 変数の範囲を確認します。
+            </callout-box>
+            <div class="button-row">
+              <button class="secondary" type="button" data-theme="ocean">Ocean</button>
+              <button class="secondary" type="button" data-theme="sunset">Sunset</button>
+              <button class="secondary" type="button" data-theme="forest">Forest</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>ソースを見る</h2>
+          <p>
+            変更可能な見た目だけを `--callout-*` 変数として定義し、それ以外のレイアウトはコンポーネント側で握っています。
+          </p>
+          <div class="source-links">
+            <a class="link-button secondary" href="./index.html">index.html</a>
+            <a class="link-button secondary" href="./demo.js">demo.js</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>確認ポイント</h2>
+          <ul>
+            <li>スタイルを閉じ込めても、必要なデザイントークンだけは外へ開けます。</li>
+            <li>変更可能なプロパティ名は API なので、意味が伝わる命名が重要です。</li>
+            <li>次はアクセシブルなトグル UI で、見た目と操作性を両立させます。</li>
+          </ul>
+          <p class="next-link">
+            <a class="link-button" href="../../06-accessibility/01-toggle-button/index.html">次のステップへ</a>
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

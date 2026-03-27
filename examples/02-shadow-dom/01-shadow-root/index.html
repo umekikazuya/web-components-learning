@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 3 | Shadow DOM</title>
+    <link rel="stylesheet" href="../../shared/example-page.css">
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body>
+    <main class="example-shell">
+      <nav class="breadcrumbs">
+        <a href="../../../index.html">Home</a> / <a href="../../index.html">Curriculum</a> / Step 3
+      </nav>
+
+      <header class="page-header">
+        <h1>Step 3: Shadow DOM でカプセル化する</h1>
+        <p>
+          このステップでは、要素内部の DOM と CSS を Shadow Root に閉じ込めます。
+          外側のスタイルが漏れにくくなると、コンポーネントとしての責務がはっきりします。
+        </p>
+        <div class="meta">
+          <span>attachShadow</span>
+          <span>style isolation</span>
+          <span>internal DOM</span>
+        </div>
+      </header>
+
+      <section class="content-grid">
+        <article class="card">
+          <h2>このステップで学ぶこと</h2>
+          <ul>
+            <li>`attachShadow({ mode: "open" })` の基本</li>
+            <li>外側 CSS と内部 CSS の影響範囲の違い</li>
+            <li>コンポーネント内の構造を内部実装として隠す考え方</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>ライブデモ</h2>
+          <div class="preview stack">
+            <div class="comparison-grid">
+              <div class="plain-card">
+                <strong>通常の DOM</strong>
+                <p>このカードは外側の CSS の影響を受けています。</p>
+              </div>
+              <shadow-profile name="Shadow Card" role-label="Encapsulated UI"></shadow-profile>
+            </div>
+            <div class="inline-note">
+              右側のカスタム要素は内部スタイルを Shadow Root に持つため、ページ側の `.plain-card` スタイルとは独立しています。
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>ソースを見る</h2>
+          <p>
+            `constructor` で Shadow Root を作り、`render()` で内部のテンプレートと CSS をまとめて注入しています。
+          </p>
+          <div class="source-links">
+            <a class="link-button secondary" href="./index.html">index.html</a>
+            <a class="link-button secondary" href="./demo.js">demo.js</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>確認ポイント</h2>
+          <ul>
+            <li>内部 DOM が外へ公開されないので、利用側はタグ API に集中できます。</li>
+            <li>スタイルを閉じ込めても、属性やイベントで外と通信する設計は必要です。</li>
+            <li>次は `template` と `slot` で構造の再利用に進みます。</li>
+          </ul>
+          <p class="next-link">
+            <a class="link-button" href="../../03-template-and-slot/01-card-layout/index.html">次のステップへ</a>
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

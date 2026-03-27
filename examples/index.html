@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum | Web Components Learning</title>
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <main class="site-shell">
+      <section class="hero">
+        <p class="eyebrow">Curriculum map</p>
+        <h1>学習トラック</h1>
+        <p class="lead">
+          下から順番に進めると、独自要素の定義から実務的なフォーム連携まで一通り学べます。
+          すべてのステップにライブデモとソースへのリンクを用意しています。
+        </p>
+        <div class="actions">
+          <a class="button primary" href="../index.html">トップへ戻る</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <h2>ステップ一覧</h2>
+          <p>まずは基礎 3 ステップを触り、その後に構造・設計・実務向けトピックへ進みます。</p>
+        </div>
+
+        <div class="curriculum-list">
+          <article class="card curriculum-card">
+            <span class="pill">Step 1</span>
+            <h3>Custom Elements の最小構成</h3>
+            <p>独自タグの定義と `connectedCallback` による初期描画を確認します。</p>
+            <a class="button secondary" href="./01-custom-elements/01-define-element/index.html">開く</a>
+          </article>
+
+          <article class="card curriculum-card">
+            <span class="pill">Step 2</span>
+            <h3>Attributes / Properties を設計する</h3>
+            <p>`observedAttributes` と property setter を使って公開 API を揃えます。</p>
+            <a class="button secondary" href="./01-custom-elements/02-observed-attributes/index.html">開く</a>
+          </article>
+
+          <article class="card curriculum-card">
+            <span class="pill">Step 3</span>
+            <h3>Shadow DOM でカプセル化する</h3>
+            <p>内部 DOM とスタイルを閉じ込めて、外側の CSS と責務を分離します。</p>
+            <a class="button secondary" href="./02-shadow-dom/01-shadow-root/index.html">開く</a>
+          </article>
+
+          <article class="card curriculum-card">
+            <span class="pill">Step 4</span>
+            <h3>Template / Slot で構造を再利用する</h3>
+            <p>固定レイアウトと差し替え可能なコンテンツを組み合わせます。</p>
+            <a class="button secondary" href="./03-template-and-slot/01-card-layout/index.html">開く</a>
+          </article>
+
+          <article class="card curriculum-card">
+            <span class="pill">Step 5</span>
+            <h3>CustomEvent で外側と通信する</h3>
+            <p>内部の状態変化をイベントで外へ伝え、imperative API も追加します。</p>
+            <a class="button secondary" href="./04-events-and-api/01-counter-events/index.html">開く</a>
+          </article>
+
+          <article class="card curriculum-card">
+            <span class="pill">Step 6</span>
+            <h3>テーマ切り替えしやすいコンポーネントにする</h3>
+            <p>CSS カスタムプロパティを公開して外側から見た目を調整できるようにします。</p>
+            <a class="button secondary" href="./05-styling/01-themeable-callout/index.html">開く</a>
+          </article>
+
+          <article class="card curriculum-card">
+            <span class="pill">Step 7</span>
+            <h3>アクセシブルなトグル UI を作る</h3>
+            <p>キーボード操作、状態反映、フォーカス可能な実装を確認します。</p>
+            <a class="button secondary" href="./06-accessibility/01-toggle-button/index.html">開く</a>
+          </article>
+
+          <article class="card curriculum-card">
+            <span class="pill">Step 8</span>
+            <h3>ElementInternals でフォームに参加させる</h3>
+            <p>フォーム送信値、リセット、ブラウザサポート上の注意点を学びます。</p>
+            <a class="button secondary" href="./07-forms-and-element-internals/01-associated-control/index.html">開く</a>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

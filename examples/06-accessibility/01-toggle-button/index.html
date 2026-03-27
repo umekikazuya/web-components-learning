@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 7 | Accessibility</title>
+    <link rel="stylesheet" href="../../shared/example-page.css">
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body>
+    <main class="example-shell">
+      <nav class="breadcrumbs">
+        <a href="../../../index.html">Home</a> / <a href="../../index.html">Curriculum</a> / Step 7
+      </nav>
+
+      <header class="page-header">
+        <h1>Step 7: アクセシブルなトグル UI を作る</h1>
+        <p>
+          カスタム UI を作るときほど、キーボード操作と状態の伝達を意識する必要があります。
+          この例では、Shadow DOM 内に本物の `<button>` を置いて操作性を確保します。
+        </p>
+        <div class="meta">
+          <span>keyboard support</span>
+          <span>aria-pressed</span>
+          <span>state reflection</span>
+        </div>
+      </header>
+
+      <section class="content-grid">
+        <article class="card">
+          <h2>このステップで学ぶこと</h2>
+          <ul>
+            <li>見た目を作り込んでも、操作可能な実要素を使うことの大切さ</li>
+            <li>状態を `aria-pressed` と属性に反映する方法</li>
+            <li>カスタムイベントで外側の UI と同期する方法</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>ライブデモ</h2>
+          <div class="preview stack">
+            <toggle-button id="newsletter-toggle" label="ニュースレターを購読する"></toggle-button>
+            <div class="inline-note" id="toggle-state">現在は未購読です。Space キーでも切り替えられます。</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>ソースを見る</h2>
+          <p>
+            ホスト要素自体を無理にボタン化せず、Shadow DOM の中に `<button>` を持たせてアクセシビリティを借りています。
+          </p>
+          <div class="source-links">
+            <a class="link-button secondary" href="./index.html">index.html</a>
+            <a class="link-button secondary" href="./demo.js">demo.js</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>確認ポイント</h2>
+          <ul>
+            <li>本物のボタン要素を使うと、Enter / Space やフォーカス管理をほぼそのまま活用できます。</li>
+            <li>アクセシビリティ属性は表示状態と同期して初めて意味を持ちます。</li>
+            <li>最後は `ElementInternals` でフォーム参加型コンポーネントを作ります。</li>
+          </ul>
+          <p class="next-link">
+            <a class="link-button" href="../../07-forms-and-element-internals/01-associated-control/index.html">次のステップへ</a>
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
